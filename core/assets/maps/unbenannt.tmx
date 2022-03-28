@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="64" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="26">
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="64" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="36">
  <tileset firstgid="1" source="Seasonal_Grassland.tsx"/>
  <tileset firstgid="471" source="_Complete_static_BG_(288 x 208).tsx"/>
  <layer id="1" name="Background" width="64" height="16">
@@ -13,13 +13,13 @@
   </data>
  </layer>
  <objectgroup id="3" name="Ground">
-  <object id="16" x="0" y="224" width="512" height="16"/>
-  <object id="17" x="496" y="208" width="96" height="16"/>
-  <object id="18" x="560" y="192" width="32" height="16"/>
-  <object id="19" x="560" y="224" width="112" height="16"/>
-  <object id="20" x="592" y="192" width="80" height="16"/>
-  <object id="21" x="672" y="208" width="16" height="16"/>
-  <object id="23" x="375.618" y="276.933"/>
+  <object id="27" x="0" y="224" width="672" height="16"/>
+  <object id="28" x="496" y="208" width="192" height="16"/>
+  <object id="29" x="560" y="192" width="112" height="16"/>
+  <object id="30" x="368" y="96" width="96" height="16"/>
+  <object id="31" x="448" y="80" width="96" height="16"/>
+  <object id="32" x="528" y="64" width="112" height="16"/>
+  <object id="33" x="624" y="48" width="64" height="16"/>
  </objectgroup>
  <objectgroup id="4" name="Objektebene 2"/>
  <objectgroup id="5" name="Objektebene 3"/>
@@ -27,5 +27,5 @@
  <objectgroup id="7" name="Objektebene 5">
   <object id="25" x="352" y="208"/>
  </objectgroup>
- <objectgroup id="8" name="Objektebene 6"/>
+ <objectgroup id="8" name="Objektebene 6" visible="0"/>
 </map>
