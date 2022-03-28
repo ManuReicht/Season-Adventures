@@ -45,6 +45,7 @@ public class Player extends Sprite {
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
             currentState = State.JUMPING;
         }
+        currentState = State.STANDING;
     }
 
     public void defineMario(){
