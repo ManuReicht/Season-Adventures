@@ -83,13 +83,16 @@ public class PlayScreen implements Screen{
     }
 
     public void handleInput(float dt){
+        player.printState();
         //control our player using immediate impulses
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
             player.jump();
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getB2body().getLinearVelocity().x <= 2)
-            player.getB2body().applyLinearImpulse(new Vector2(0.1f, 0), player.getB2body().getWorldCenter(), true);
+            player.moveRight();
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.getB2body().getLinearVelocity().x >= -2)
-            player.getB2body().applyLinearImpulse(new Vector2(-0.1f, 0), player.getB2body().getWorldCenter(), true);
+            player.moveLeft();
+
+        player.updateCurrentState();
     }
 
     public void update(float dt){

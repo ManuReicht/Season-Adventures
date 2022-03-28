@@ -41,11 +41,20 @@ public class Player extends Sprite {
     }
 
     public void jump(){
-        if ( currentState != State.JUMPING ) {
+        // no double jumps, only allow jumping if mario is standing of running
+        if(currentState == State.STANDING || currentState == State.RUNNING){
+        //if ( currentState != State.JUMPING && previousState != State.JUMPING ) { //old line
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
-            currentState = State.JUMPING;
         }
-        currentState = State.STANDING;
+
+    }
+
+    public void moveRight(){
+        b2body.applyLinearImpulse(new Vector2(0.1f, 0), b2body.getWorldCenter(), true);
+    }
+
+    public void moveLeft(){
+        b2body.applyLinearImpulse(new Vector2(-0.1f, 0), b2body.getWorldCenter(), true);
     }
 
     public void defineMario(){
@@ -78,9 +87,10 @@ public class Player extends Sprite {
     }
 
     public State getState(){
-        //Test to Box2D for velocity on the X and Y-Axis
-        //if mario is going positive in Y-Axis he is jumping... or if he just jumped and is falling remain in jump state
-        if((b2body.getLinearVelocity().y > 0 && currentState == State.JUMPING) || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
+        //Test to Box2D for velocity on the X and Y-Axis ~ Nik
+        //if mario is going positive in Y-Axis he is jumping, no double jumps ~ Manu
+        //if((b2body.getLinearVelocity().y > 0 && currentState == State.JUMPING) || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING)) // old line
+        if(b2body.getLinearVelocity().y > 0)
             return State.JUMPING;
             //if negative in Y-Axis mario is falling
         else if(b2body.getLinearVelocity().y < 0)
@@ -91,6 +101,15 @@ public class Player extends Sprite {
             //if none of these return then he must be standing
         else
             return State.STANDING;
+    }
+
+    public void printState(){
+        System.out.println(currentState);
+    }
+
+    public void updateCurrentState(){
+        previousState = currentState;
+        currentState = getState();
     }
 
     public State getCurrentState() {
