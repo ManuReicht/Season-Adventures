@@ -1,31 +1,65 @@
 package at.htlkaindorf;
 
+import at.htlkaindorf.screens.PlayScreen;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class Game extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+public class Game extends com.badlogic.gdx.Game {
+	private final int V_WIDTH = 400;
+	private final int V_HEIGHT = 208;
+	private final float PPM = 100;
+
+	private static Game instance;
+	private SpriteBatch batch;
+
+	private AssetManager manager;
+
+	private Game() {}
+
+	public static Game getInstance() {
+		if (instance == null) {
+			instance = new Game();
+		}
+		return instance;
+	}
 	
 	@Override
 	public void create () {
+		System.out.println("CREATEAEEeee");
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		manager = new AssetManager();
+
+		manager.finishLoading();
+		setScreen(new PlayScreen());
 	}
 
 	@Override
 	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		super.render();
 	}
 	
 	@Override
 	public void dispose () {
+		super.dispose();
+		manager.dispose();
 		batch.dispose();
-		img.dispose();
 	}
+
+	public SpriteBatch getBatch() {
+		return batch;
+	}
+	public AssetManager getManager() {
+		return manager;
+	}
+
+	public int getV_WIDTH() {
+		return V_WIDTH;
+	}
+	public int getV_HEIGHT() {
+		return V_HEIGHT;
+	}
+	public float getPPM() { return PPM; }
 }
