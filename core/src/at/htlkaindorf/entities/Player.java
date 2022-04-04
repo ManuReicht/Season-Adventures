@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
 public class Player extends Sprite {
-    public static final int MAX_JUMP_HEIGHT = 30;
+    public static final int MAX_JUMP_HEIGHT = 25;
     public enum State { FALLING, JUMPING, STANDING, RUNNING, DEAD};
 	
     private State currentState;
