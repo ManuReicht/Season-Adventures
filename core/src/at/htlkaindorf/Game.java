@@ -28,7 +28,6 @@ public class Game extends com.badlogic.gdx.Game {
 	
 	@Override
 	public void create () {
-		System.out.println("CREATEAEEeee");
 		batch = new SpriteBatch();
 		manager = new AssetManager();
 
