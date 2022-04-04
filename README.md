@@ -1,5 +1,11 @@
 # Season Adventures
 
+## Trello
+https://trello.com/b/0HgkEtQq/season-adventures
+
+## Zeitaufzeichnung
+https://docs.google.com/spreadsheets/d/1_x5mME89AK8lcQwUQ1XozdxPVGa0oh3o4wjBLSRYDFk/
+
 ## Richtlinen für Levelerstellung (Ebenen)
 
 1. Kachelebenen
