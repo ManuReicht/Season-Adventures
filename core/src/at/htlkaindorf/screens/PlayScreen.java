@@ -18,11 +18,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.util.concurrent.LinkedBlockingQueue;
-
-/**
- * Created by brentaureli on 8/14/15.
- */
 public class PlayScreen implements Screen{
     //Reference to our Game, used to set Screens
     private TextureAtlas atlas;
@@ -57,7 +52,7 @@ public class PlayScreen implements Screen{
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
-        map = maploader.load("maps/unbenannt.tmx");
+        map = maploader.load("maps/level_1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / Game.getInstance().getPPM());
 
         //initially set our gamcam to be centered correctly at the start of of map
