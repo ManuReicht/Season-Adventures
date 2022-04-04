@@ -30,7 +30,7 @@ public class Player extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         //define mario in Box2d
-        definePlayer();
+        defineMario();
 
         //set initial values for marios location, width and height. And initial frame as marioStand.
         setBounds(0, 0, 16 / Game.getInstance().getPPM(), 16 / Game.getInstance().getPPM());
@@ -58,7 +58,7 @@ public class Player extends Sprite {
         b2body.applyLinearImpulse(new Vector2(-0.1f, 0), b2body.getWorldCenter(), true);
     }
 
-    public void definePlayer(){
+    public void defineMario(){
         BodyDef bdef = new BodyDef();
         bdef.position.set(32 / Game.getInstance().getPPM(), 32 / Game.getInstance().getPPM());
         bdef.type = BodyDef.BodyType.DynamicBody;
