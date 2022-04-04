@@ -21,7 +21,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class PlayScreen implements Screen{
     //Reference to our Game, used to set Screens
     private TextureAtlas atlas;
-    public static boolean alreadyDestroyed = false;
 
     //basic playscreen variables
     private OrthographicCamera gamecam;
@@ -113,6 +112,11 @@ public class PlayScreen implements Screen{
         gamecam.update();
         //tell our renderer to draw only what our camera can see in our game world.
         renderer.setView(gamecam);
+
+        //if player dead
+        if(player.getCurrentState() == Player.State.DEAD){
+            Game.getInstance().reloadGame();
+        }
 
     }
 

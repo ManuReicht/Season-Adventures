@@ -10,10 +10,9 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
 public class Player extends Sprite {
-
     public static final int MAX_JUMP_HEIGHT = 30;
-
-    public enum State { FALLING, JUMPING, STANDING, RUNNING};
+    public enum State { FALLING, JUMPING, STANDING, RUNNING, DEAD};
+	
     private State currentState;
     private State previousState;
 
@@ -102,8 +101,11 @@ public class Player extends Sprite {
     public State getState(){
         //Test to Box2D for velocity on the X and Y-Axis ~ Nik
         //if player is going positive in Y-Axis he is jumping, no double jumps ~ Manu
-        //if((b2body.getLinearVelocity().y > 0 && currentState == State.JUMPING) || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING)) // old line
-        if(b2body.getLinearVelocity().y > 0)
+
+        //if player is dead
+        if(b2body.getPosition().y < 0)
+            return State.DEAD;
+        else if(b2body.getLinearVelocity().y > 0)
             return State.JUMPING;
             //if negative in Y-Axis player is falling
         else if(b2body.getLinearVelocity().y < 0)
@@ -122,6 +124,7 @@ public class Player extends Sprite {
 
     public void printState(){
         System.out.println(currentState);
+        System.out.println(b2body.getPosition().y);
     }
 
     public void updateCurrentState(){

@@ -61,4 +61,8 @@ public class Game extends com.badlogic.gdx.Game {
 		return V_HEIGHT;
 	}
 	public float getPPM() { return PPM; }
+
+	public void reloadGame(){
+		setScreen(new PlayScreen());
+	}
 }
