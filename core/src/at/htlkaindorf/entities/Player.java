@@ -71,7 +71,7 @@ public class Player extends Sprite {
 
     public void definePlayer(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(32 / Game.getInstance().getPPM(), 32 / Game.getInstance().getPPM());
+        bdef.position.set(200 / Game.getInstance().getPPM(), 32 / Game.getInstance().getPPM());
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -124,7 +124,7 @@ public class Player extends Sprite {
 
     public void printState(){
         System.out.println(currentState);
-        System.out.println(b2body.getPosition().y);
+        //System.out.println(b2body.getPosition().y);
     }
 
     public void updateCurrentState(){

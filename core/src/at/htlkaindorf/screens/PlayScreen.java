@@ -51,7 +51,7 @@ public class PlayScreen implements Screen{
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
-        map = maploader.load("maps/level_1.tmx");
+        map = maploader.load("maps/level_2.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / Game.getInstance().getPPM());
 
         //initially set our gamcam to be centered correctly at the start of of map
@@ -113,7 +113,7 @@ public class PlayScreen implements Screen{
         //tell our renderer to draw only what our camera can see in our game world.
         renderer.setView(gamecam);
 
-        //if player dead
+        //if player is dead, restart the game
         if(player.getCurrentState() == Player.State.DEAD){
             Game.getInstance().reloadGame();
         }
