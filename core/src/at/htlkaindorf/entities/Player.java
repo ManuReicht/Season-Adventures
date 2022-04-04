@@ -24,12 +24,7 @@ public class Player extends Sprite {
         this.screen = screen;
         this.world = screen.getWorld();
         Array<TextureRegion> frames = new Array<TextureRegion>();
-
-<<<<<<< HEAD
-        //define player in Box2d
-=======
-        //define mario in Box2d
->>>>>>> fda7a72a751211a0c6c7f17951d2865f23d27ad3
+        
         definePlayer();
 
         //set initial values for players location, width and height. And initial frame as playerStand.
