@@ -10,9 +10,15 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
 public class Player extends Sprite {
+
+    public static final int MAX_JUMP_HEIGHT = 30;
+
     public enum State { FALLING, JUMPING, STANDING, RUNNING};
     private State currentState;
     private State previousState;
+
+    private float yBeforeJump;
+    private boolean gainHeight = true;
 
     private World world;
     private Body b2body;
@@ -40,7 +46,19 @@ public class Player extends Sprite {
         // no double jumps, only allow jumping if player is standing of running
         if(currentState == State.STANDING || currentState == State.RUNNING){
         //if ( currentState != State.JUMPING && previousState != State.JUMPING ) { //old line
-            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+            yBeforeJump = b2body.getPosition().y;
+            b2body.applyLinearImpulse(new Vector2(0, 1f), b2body.getWorldCenter(), true);
+        }
+    }
+
+    public void gainHeight() {
+        if ((b2body.getPosition().y) < (MAX_JUMP_HEIGHT / Game.getInstance().getPPM() + yBeforeJump) && gainHeight) {
+            b2body.applyLinearImpulse(new Vector2(0, 0.5f), b2body.getWorldCenter(), true);
+        } else if (currentState.equals(State.STANDING)){
+            gainHeight = false;
+        } else {
+            System.out.println("hjlkögfs ");
+            gainHeight = false;
         }
     }
 
@@ -91,11 +109,15 @@ public class Player extends Sprite {
         else if(b2body.getLinearVelocity().y < 0)
             return State.FALLING;
             //if player is positive or negative in the X axis he is running
-        else if(b2body.getLinearVelocity().x != 0)
+        else if(b2body.getLinearVelocity().x != 0) {
+            gainHeight = true;
             return State.RUNNING;
             //if none of these return then he must be standing
-        else
+        }
+        else {
+            gainHeight = true;
             return State.STANDING;
+        }
     }
 
     public void printState(){
@@ -125,5 +147,13 @@ public class Player extends Sprite {
 
     public PlayScreen getScreen() {
         return screen;
+    }
+
+    public boolean isGainHeight() {
+        return gainHeight;
+    }
+
+    public void setGainHeight(boolean gainHeight) {
+        this.gainHeight = gainHeight;
     }
 }
