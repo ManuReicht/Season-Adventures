@@ -24,7 +24,8 @@ public class Player extends Sprite {
         this.screen = screen;
         this.world = screen.getWorld();
         Array<TextureRegion> frames = new Array<TextureRegion>();
-        
+
+        //define player in Box2d
         definePlayer();
 
         //set initial values for players location, width and height. And initial frame as playerStand.
