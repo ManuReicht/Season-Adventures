@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
 public class Player extends Sprite {
-    public static final int MAX_JUMP_HEIGHT = 25;
+    public static final int MAX_JUMP_HEIGHT = 35;
     public enum State { FALLING, JUMPING, STANDING, RUNNING, DEAD};
 	
     private State currentState;
@@ -52,7 +52,7 @@ public class Player extends Sprite {
 
     public void gainHeight() {
         if ((b2body.getPosition().y) < (MAX_JUMP_HEIGHT / Game.getInstance().getPPM() + yBeforeJump) && gainHeight) {
-            b2body.applyLinearImpulse(new Vector2(0, 0.5f), b2body.getWorldCenter(), true);
+            b2body.applyLinearImpulse(new Vector2(0, 0.3f), b2body.getWorldCenter(), true);
         } else if (currentState.equals(State.STANDING)){
             gainHeight = false;
         } else {
