@@ -80,12 +80,16 @@ public class PlayScreen implements Screen{
         System.out.println(player.getB2body().getPosition().y);
         player.printState();
         //control our player using immediate impulses
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-                player.jump();
-            } else if (player.getCurrentState().equals(Player.State.JUMPING)){
-                player.gainHeight();
+        try {
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+                    player.jump();
+                } else if (player.getCurrentState().equals(Player.State.JUMPING)){
+                    player.gainHeight();
+                }
             }
+        } catch (IndexOutOfBoundsException iooe) {
+
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getB2body().getLinearVelocity().x <= 2)
