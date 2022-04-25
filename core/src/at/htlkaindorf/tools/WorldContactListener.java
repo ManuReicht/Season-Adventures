@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.*;
 public class WorldContactListener implements ContactListener {
 
     private final static short NOTHING_BIT = Game.getInstance().getNOTHING_BIT();
-    private final static short TERRAIN_BIT = Game.getInstance().getGROUND_BIT();
+    private final static short TERRAIN_BIT = Game.getInstance().getTERRAIN_BIT();
     private final static short PLAYER_BIT = Game.getInstance().getMARIO_BIT();
     //private final static short BRICK_BIT = Game.getInstance().getBRICK_BIT();
     //private final static short COIN_BIT = Game.getInstance().getCOIN_BIT();
@@ -43,6 +43,7 @@ public class WorldContactListener implements ContactListener {
         //}
         else if (cDef == (PLAYER_BIT | ENEMY_BIT)) { // Player collides with an enemy
             takeDamage();
+            System.out.println("PlayerToTheHit");
         } else if (cDef == (ENEMY_BIT | ENEMY_BIT)) { // Two enemys collide with each other
             hitByOtherEnemy();
         }

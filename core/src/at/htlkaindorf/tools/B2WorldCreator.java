@@ -1,6 +1,7 @@
 package at.htlkaindorf.tools;
 
 import at.htlkaindorf.Game;
+import at.htlkaindorf.entities.enemies.Enemy;
 import at.htlkaindorf.entities.enemies.Walker;
 import at.htlkaindorf.screens.PlayScreen;
 import com.badlogic.gdx.maps.MapObject;
@@ -24,7 +25,7 @@ public class B2WorldCreator {
         Body body;
 
         //create terrain
-        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -41,10 +42,16 @@ public class B2WorldCreator {
 
         //create enemies
         walkers = new Array<Walker>();
-        for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             walkers.add(new Walker(screen, rect.getX() / Game.getInstance().getPPM(),
                     rect.getY() / Game.getInstance().getPPM()));
         }
+    }
+
+    public Array<Enemy> getEnemies(){
+        Array<Enemy> enemies = new Array<Enemy>();
+        enemies.addAll(walkers);
+        return enemies;
     }
 }

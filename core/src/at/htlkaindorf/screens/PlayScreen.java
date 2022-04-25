@@ -2,7 +2,9 @@ package at.htlkaindorf.screens;
 
 import at.htlkaindorf.Game;
 import at.htlkaindorf.entities.Player;
+import at.htlkaindorf.entities.enemies.Enemy;
 import at.htlkaindorf.tools.B2WorldCreator;
+import at.htlkaindorf.tools.WorldContactListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -51,7 +53,7 @@ public class PlayScreen implements Screen{
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
-        map = maploader.load("maps/unbenannt.tmx");
+        map = maploader.load("maps/test.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / Game.getInstance().getPPM());
 
         //initially set our gamcam to be centered correctly at the start of of map
@@ -66,6 +68,8 @@ public class PlayScreen implements Screen{
 
         //create mario in our game world
         player = new Player(this);
+
+        world.setContactListener(new WorldContactListener());
     }
 
     public TextureAtlas getAtlas(){
@@ -77,7 +81,6 @@ public class PlayScreen implements Screen{
     }
 
     public void handleInput(float dt){
-        System.out.println(player.getB2body().getPosition().y);
         player.printState();
         //control our player using immediate impulses
         try {
@@ -108,13 +111,17 @@ public class PlayScreen implements Screen{
         world.step(1 / 60f, 6, 2);
         player.update(dt);
 
+        for(Enemy enemy : creator.getEnemies()) {
+            enemy.update(dt);
+            if (enemy.getX() < player.getX() + 224 / Game.getInstance().getPPM()) {
+                enemy.getB2body().setActive(true);
+            }
+        }
 
         //attach our gamecam to our players.x coordinate
         if (player.getB2body().getPosition().x > 2) {
             gamecam.position.x = player.getB2body().getPosition().x;
         }
-
-        System.out.println("Position: " + gamePort.getWorldWidth());
 
         //update our gamecam with correct coordinates after changes
         gamecam.update();

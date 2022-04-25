@@ -84,7 +84,7 @@ public class Game extends com.badlogic.gdx.Game {
 		return NOTHING_BIT;
 	}
 
-	public short getGROUND_BIT() {
+	public short getTERRAIN_BIT() {
 		return TERRAIN_BIT;
 	}
 

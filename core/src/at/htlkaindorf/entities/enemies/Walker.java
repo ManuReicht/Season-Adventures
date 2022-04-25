@@ -22,6 +22,9 @@ public class Walker extends Enemy{
     private boolean destroyed;
     float angle;
 
+    private double oldPosition = b2body.getPosition().x;
+    private double newPosition = oldPosition + 100;
+
 
     public Walker(PlayScreen screen, float x, float y) {
         super(screen, x, y);
@@ -47,8 +50,18 @@ public class Walker extends Enemy{
         else if(!destroyed) {
             b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-            setRegion(walkAnimation.getKeyFrame(stateTime, true));
+            //setRegion(walkAnimation.getKeyFrame(stateTime, true));
         }
+
+        oldPosition = newPosition;
+        newPosition = b2body.getPosition().x;
+
+        if(oldPosition == newPosition) {
+            reverseVelocity(true, false);
+            newPosition += 100;
+            //System.out.println("Reverse");
+        }
+
     }
 
     @Override
@@ -62,7 +75,7 @@ public class Walker extends Enemy{
         CircleShape shape = new CircleShape();
         shape.setRadius(6 / Game.getInstance().getPPM());
         fdef.filter.categoryBits = Game.getInstance().getENEMY_BIT();
-        fdef.filter.maskBits = (short) (Game.getInstance().getGROUND_BIT() |
+        fdef.filter.maskBits = (short) (Game.getInstance().getTERRAIN_BIT() |
                 //Game.getInstance().getCOIN_BIT() |
                 //Game.getInstance().getBRICK_BIT() |
                 Game.getInstance().getENEMY_BIT() |
@@ -98,7 +111,7 @@ public class Walker extends Enemy{
     @Override
     public void hitOnHead(Player player) {
         setToDestroy = true;
-        Game.getInstance().getManager().get("audio/sounds/stomp.wav", Sound.class).play();
+        //Game.getInstance().getManager().get("audio/sounds/stomp.wav", Sound.class).play();
     }
 
     @Override

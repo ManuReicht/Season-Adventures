@@ -85,6 +85,18 @@ public class Player extends Sprite {
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(6 / Game.getInstance().getPPM(), 6 / Game.getInstance().getPPM());
+
+        fdef.filter.categoryBits = Game.getInstance().getMARIO_BIT();
+        fdef.filter.maskBits = (short) (Game.getInstance().getTERRAIN_BIT() |
+                //Game.getInstance().getCOIN_BIT() |
+                //Game.getInstance().getBRICK_BIT() |
+                Game.getInstance().getENEMY_BIT() |
+                //Game.getInstance().getOBJECT_BIT() |
+                Game.getInstance().getENEMY_HEAD_BIT());
+                //Game.getInstance().getITEM_BIT());
+
+        fdef.shape = shape;
+        
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
 
@@ -129,7 +141,7 @@ public class Player extends Sprite {
     }
 
     public void printState(){
-        System.out.println(currentState);
+        //System.out.println(currentState);
         //System.out.println(b2body.getPosition().y);
     }
 
