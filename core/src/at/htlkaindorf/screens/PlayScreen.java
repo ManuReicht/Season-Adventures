@@ -55,7 +55,7 @@ public class PlayScreen implements Screen{
         renderer = new OrthogonalTiledMapRenderer(map, 1  / Game.getInstance().getPPM());
 
         //initially set our gamcam to be centered correctly at the start of of map
-        gamecam.position.set((gamePort.getWorldWidth() / 2 + 1.5f), gamePort.getWorldHeight() / 2, 0);
+        gamecam.position.set((gamePort.getWorldWidth() / 2), gamePort.getWorldHeight() / 2, 0);
 
         //create our Box2D world, setting no gravity in X, -10 gravity in Y, and allow bodies to sleep
         world = new World(new Vector2(0, -10), true);
@@ -110,7 +110,7 @@ public class PlayScreen implements Screen{
 
 
         //attach our gamecam to our players.x coordinate
-        if (player.getB2body().getPosition().x > 3.5) {
+        if (player.getB2body().getPosition().x > 2) {
             gamecam.position.x = player.getB2body().getPosition().x;
         }
 
