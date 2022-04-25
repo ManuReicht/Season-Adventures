@@ -20,7 +20,7 @@ https://libgdx.com/
     * ID 4: Terrain
     * ID 5: Standard Collectibles
     * ID 6: Special Collectibles
-    * ID 7: Gegner 1
+    * ID 7: Walker (Gegner 1)
     * ID 8: Gegner 2
     * ID 9: Gegner 3
     * ID 10: Movable Platform y
