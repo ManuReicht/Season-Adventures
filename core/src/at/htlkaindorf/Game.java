@@ -1,5 +1,6 @@
 package at.htlkaindorf;
 
+import at.htlkaindorf.screens.MainMenuScreen;
 import at.htlkaindorf.screens.PlayScreen;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.assets.AssetManager;
@@ -44,7 +45,8 @@ public class Game extends com.badlogic.gdx.Game {
 		manager = new AssetManager();
 
 		manager.finishLoading();
-		setScreen(new PlayScreen());
+		//setScreen(new PlayScreen());
+		setScreen(new MainMenuScreen());
 	}
 
 	@Override
