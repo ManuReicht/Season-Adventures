@@ -1,17 +1,18 @@
 package at.htlkaindorf.tools;
 
 import at.htlkaindorf.Game;
+import at.htlkaindorf.entities.enemies.Walker;
 import at.htlkaindorf.screens.PlayScreen;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 
-/**
- * Created by brentaureli on 8/28/15.
- */
+
 public class B2WorldCreator {
+    private Array<Walker> walkers;
 
     public B2WorldCreator(PlayScreen screen){
         World world = screen.getWorld();
@@ -22,7 +23,7 @@ public class B2WorldCreator {
         FixtureDef fdef = new FixtureDef();
         Body body;
 
-        //create ground bodies/fixtures
+        //create terrain
         for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
@@ -38,20 +39,12 @@ public class B2WorldCreator {
             body.createFixture(fdef);
         }
 
-        //create pipe bodies/fixtures
-        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+        //create enemies
+        walkers = new Array<Walker>();
+        for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / Game.getInstance().getPPM(),
-                              (rect.getY() + rect.getHeight() / 2) / Game.getInstance().getPPM());
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 / Game.getInstance().getPPM(),
-                           rect.getHeight() / 2 / Game.getInstance().getPPM());
-            fdef.shape = shape;
-            body.createFixture(fdef);
+            walkers.add(new Walker(screen, rect.getX() / Game.getInstance().getPPM(),
+                    rect.getY() / Game.getInstance().getPPM()));
         }
     }
 }
