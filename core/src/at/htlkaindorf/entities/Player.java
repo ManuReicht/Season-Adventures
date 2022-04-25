@@ -1,7 +1,9 @@
 package at.htlkaindorf.entities;
 
 import at.htlkaindorf.Game;
+import at.htlkaindorf.entities.enemies.Enemy;
 import at.htlkaindorf.screens.PlayScreen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -67,6 +69,10 @@ public class Player extends Sprite {
 
     public void moveLeft(){
         b2body.applyLinearImpulse(new Vector2(-0.1f, 0), b2body.getWorldCenter(), true);
+    }
+
+    public void hit(Enemy enemy){
+        currentState = State.DEAD;
     }
 
     public void definePlayer(){

@@ -8,9 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 
-/**
- * Created by brentaureli on 8/28/15.
- */
+
 public class B2WorldCreator {
 
     public B2WorldCreator(PlayScreen screen){
@@ -22,7 +20,7 @@ public class B2WorldCreator {
         FixtureDef fdef = new FixtureDef();
         Body body;
 
-        //create ground bodies/fixtures
+        //create terrain
         for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
