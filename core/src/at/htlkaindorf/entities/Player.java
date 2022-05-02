@@ -57,7 +57,6 @@ public class Player extends Sprite {
         } else if (currentState.equals(State.STANDING)){
             gainHeight = false;
         } else {
-            System.out.println("hjlkögfs ");
             gainHeight = false;
         }
     }

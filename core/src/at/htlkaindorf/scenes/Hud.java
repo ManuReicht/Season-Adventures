@@ -36,7 +36,7 @@ public class Hud implements Disposable{
 
     public Hud(SpriteBatch sb){
         //define our tracking variables
-        worldTimer = 300;
+        worldTimer = 500;
         timeCount = 0;
         score = 0;
 
@@ -93,6 +93,10 @@ public class Hud implements Disposable{
             }
             lblCountdown.setText(String.format("%03d", worldTimer));
             timeCount = 0;
+        }
+
+        if(timeUp){
+            Game.getInstance().reloadGame();
         }
     }
 

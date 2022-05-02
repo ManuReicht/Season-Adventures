@@ -46,7 +46,7 @@ public class PlayScreen implements Screen{
     //sprites
     private Player player;
 
-    public PlayScreen(){
+    public PlayScreen(String mapName){
         //atlas = new TextureAtlas("Mario_and_Enemies.pack");
 
         //create cam used to follow mario through cam world
@@ -58,7 +58,7 @@ public class PlayScreen implements Screen{
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
-        map = maploader.load("maps/test.tmx");
+        map = maploader.load("maps/"+mapName+".tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / Game.getInstance().getPPM());
 
         //initially set our gamcam to be centered correctly at the start of of map

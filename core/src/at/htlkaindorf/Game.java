@@ -66,6 +66,10 @@ public class Game extends com.badlogic.gdx.Game {
 		return manager;
 	}
 
+	public void loadMap(String mapName){
+		setScreen(new PlayScreen(mapName));
+	}
+
 	public int getV_WIDTH() {
 		return V_WIDTH;
 	}
@@ -75,7 +79,7 @@ public class Game extends com.badlogic.gdx.Game {
 	public float getPPM() { return PPM; }
 
 	public void reloadGame(){
-		setScreen(new PlayScreen());
+		loadMap("test");
 	}
 
 	public short getNOTHING_BIT() {
