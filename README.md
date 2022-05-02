@@ -15,7 +15,7 @@ https://libgdx.com/
     * ID 1: Background
     * ID 2: Graphic Layer
     * ID 3: Foreground
-    * ID 13: Dummy Objects (Orientierung) (visible="0")
+    * ID 14: Dummy Objects (Orientierung) (visible="0")
 2. Objektebenen
     * ID 4: Terrain
     * ID 5: Standard Collectibles
@@ -26,3 +26,4 @@ https://libgdx.com/
     * ID 10: Movable Platform y
     * ID 11: Movable Platform x
     * ID 12: Trap
+    * ID 13 :Level end
