@@ -3,6 +3,7 @@ package at.htlkaindorf.screens;
 import at.htlkaindorf.Game;
 import at.htlkaindorf.entities.Player;
 import at.htlkaindorf.entities.enemies.Enemy;
+import at.htlkaindorf.scenes.Hud;
 import at.htlkaindorf.tools.B2WorldCreator;
 import at.htlkaindorf.tools.WorldContactListener;
 import com.badlogic.gdx.Gdx;
@@ -17,6 +18,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -37,6 +40,8 @@ public class PlayScreen implements Screen{
     private World world;
     private Box2DDebugRenderer b2dr;
     private B2WorldCreator creator;
+
+    private Hud hud;
 
     //sprites
     private Player player;
@@ -66,6 +71,8 @@ public class PlayScreen implements Screen{
 
         creator = new B2WorldCreator(this);
 
+        hud = new Hud(Game.getInstance().getBatch());
+
         //create mario in our game world
         player = new Player(this);
 
@@ -78,6 +85,8 @@ public class PlayScreen implements Screen{
 
     @Override
     public void show() {
+        Skin skin = new Skin(Gdx.files.internal("skins/pixthulhu/pixthulhu-ui.json"));
+        Label timer = new Label("Timer",skin);
     }
 
     public void handleInput(float dt){
@@ -135,6 +144,8 @@ public class PlayScreen implements Screen{
             Game.getInstance().reloadGame();
         }
 
+        hud.update(dt);
+
     }
 
 
@@ -157,6 +168,10 @@ public class PlayScreen implements Screen{
         //Game.getInstance().getBatch().begin();
         //player.draw(Game.getInstance().getBatch());
         //Game.getInstance().getBatch().end();
+
+        //Set our batch to now draw what the Hud camera sees.
+        Game.getInstance().getBatch().setProjectionMatrix(hud.getStage().getCamera().combined);
+        hud.getStage().draw();
     }
 
     @Override
@@ -195,5 +210,7 @@ public class PlayScreen implements Screen{
         renderer.dispose();
         world.dispose();
         b2dr.dispose();
+        hud.dispose();
     }
+    public Hud getHud(){ return hud; }
 }

@@ -4,17 +4,15 @@ import at.htlkaindorf.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MainMenuScreen implements Screen {
 
@@ -28,27 +26,28 @@ public class MainMenuScreen implements Screen {
     public void show() {
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
+        //table.setDebug(true);
         stage.addActor(table);
 
         // temporary until we have asset manager in
-        Skin skin = new Skin(Gdx.files.internal("skins/shade/uiskin.json"));
+        Skin skin = new Skin(Gdx.files.internal("skins/pixthulhu/pixthulhu-ui.json"));
 
         //create buttons
         TextButton newGame = new TextButton("New Game", skin);
-        TextButton preferences = new TextButton("Load Game", skin);
+        TextButton loadGame = new TextButton("Load Game", skin);
         TextButton exit = new TextButton("Exit", skin);
-
+        Label title = new Label("Season-Adventures", skin);
+        title.setAlignment(Align.center);
+        title.setFontScale(2);
         //add buttons to table
+
+        table.add(title).fillX().uniformX();
         table.row().pad(10, 0, 0, 0);
         table.add(newGame).fillX().uniformX();
         table.row().pad(10, 0, 0, 0);
-        table.add(newGame).fillX().uniformX();
-        table.row().pad(10, 0, 0, 0);
-        table.add(preferences).fillX().uniformX();
+        table.add(loadGame).fillX().uniformX();
         table.row().pad(10, 0, 0, 0);
         table.add(exit).fillX().uniformX();
-        table.row().pad(10, 0, 0, 0);
 
         //stage.getViewport().update(width, height, true);
         exit.addListener(new ChangeListener() {
@@ -66,7 +65,7 @@ public class MainMenuScreen implements Screen {
             }
         });
 
-        preferences.addListener(new ChangeListener() {
+        loadGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println("load game button");
