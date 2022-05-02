@@ -13,6 +13,8 @@ public abstract class Enemy extends Sprite {
     protected Body b2body;
     protected Vector2 velocity;
 
+    protected int reverseTimeout = 0;
+
     public Enemy(PlayScreen screen, float x, float y){
         this.world = screen.getWorld();
         this.screen = screen;
@@ -28,11 +30,15 @@ public abstract class Enemy extends Sprite {
     public abstract void hitByEnemy(Enemy enemy);
 
     public void reverseVelocity(boolean x, boolean y){
-        if(x) {
-            velocity.x = -velocity.x;
-        }
-        if(y) {
-            velocity.y = -velocity.y;
+        if (reverseTimeout == 0) {
+            if(x) {
+                velocity.x = -velocity.x;
+            }
+            if(y) {
+                velocity.y = -velocity.y;
+            }
+
+            reverseTimeout = 30;
         }
     }
 

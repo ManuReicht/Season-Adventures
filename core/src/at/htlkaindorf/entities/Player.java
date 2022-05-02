@@ -3,7 +3,6 @@ package at.htlkaindorf.entities;
 import at.htlkaindorf.Game;
 import at.htlkaindorf.entities.enemies.Enemy;
 import at.htlkaindorf.screens.PlayScreen;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -86,13 +85,14 @@ public class Player extends Sprite {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(6 / Game.getInstance().getPPM(), 6 / Game.getInstance().getPPM());
 
-        fdef.filter.categoryBits = Game.getInstance().getMARIO_BIT();
+        fdef.filter.categoryBits = Game.getInstance().getPLAYER_BIT();
         fdef.filter.maskBits = (short) (Game.getInstance().getTERRAIN_BIT() |
                 //Game.getInstance().getCOIN_BIT() |
                 //Game.getInstance().getBRICK_BIT() |
                 Game.getInstance().getENEMY_BIT() |
                 //Game.getInstance().getOBJECT_BIT() |
-                Game.getInstance().getENEMY_HEAD_BIT());
+                Game.getInstance().getENEMY_HEAD_BIT() |
+                Game.getInstance().getLEVEL_END_BIT());
                 //Game.getInstance().getITEM_BIT());
 
         fdef.shape = shape;

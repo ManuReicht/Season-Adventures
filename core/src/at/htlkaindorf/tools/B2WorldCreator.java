@@ -47,7 +47,25 @@ public class B2WorldCreator {
             walkers.add(new Walker(screen, rect.getX() / Game.getInstance().getPPM(),
                     rect.getY() / Game.getInstance().getPPM()));
         }
+
+        //create level end
+        for(MapObject object : map.getLayers().get(13).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / Game.getInstance().getPPM(),
+                    (rect.getY() + rect.getHeight() / 2) / Game.getInstance().getPPM());
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(rect.getWidth() / 2 / Game.getInstance().getPPM(),
+                    rect.getHeight() / 2 / Game.getInstance().getPPM());
+            fdef.shape = shape;
+            body.createFixture(fdef);
+        }
     }
+
+
 
     public Array<Enemy> getEnemies(){
         Array<Enemy> enemies = new Array<Enemy>();

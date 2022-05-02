@@ -93,6 +93,8 @@ public class PlayScreen implements Screen{
             }
         } catch (IndexOutOfBoundsException iooe) {
 
+        } catch (NullPointerException npe) {
+
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getB2body().getLinearVelocity().x <= 2)
@@ -113,9 +115,9 @@ public class PlayScreen implements Screen{
 
         for(Enemy enemy : creator.getEnemies()) {
             enemy.update(dt);
-            if (enemy.getX() < player.getX() + 224 / Game.getInstance().getPPM()) {
-                enemy.getB2body().setActive(true);
-            }
+            //if (enemy.getX() < player.getX() + 224 / Game.getInstance().getPPM()) {
+            enemy.getB2body().setActive(true);
+            //}
         }
 
         //attach our gamecam to our players.x coordinate

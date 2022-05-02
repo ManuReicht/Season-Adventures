@@ -12,7 +12,7 @@ public class WorldContactListener implements ContactListener {
 
     private final static short NOTHING_BIT = Game.getInstance().getNOTHING_BIT();
     private final static short TERRAIN_BIT = Game.getInstance().getTERRAIN_BIT();
-    private final static short PLAYER_BIT = Game.getInstance().getMARIO_BIT();
+    private final static short PLAYER_BIT = Game.getInstance().getPLAYER_BIT();
     //private final static short BRICK_BIT = Game.getInstance().getBRICK_BIT();
     //private final static short COIN_BIT = Game.getInstance().getCOIN_BIT();
     //private final static short DESTROYED_BIT = Game.getInstance().getDESTROYED_BIT();
@@ -21,6 +21,7 @@ public class WorldContactListener implements ContactListener {
     private final static short ENEMY_HEAD_BIT = Game.getInstance().getENEMY_HEAD_BIT();
     //private final static short ITEM_BIT = Game.getInstance().getITEM_BIT();
     private final static short PLAYER_HEAD_BIT = Game.getInstance().getPLAYER_HEAD_BIT();
+    private final static short LEVEL_END_BIT = Game.getInstance().getLEVEL_END_BIT();
 
     private Fixture fixA;
     private Fixture fixB;
@@ -46,6 +47,8 @@ public class WorldContactListener implements ContactListener {
             System.out.println("PlayerToTheHit");
         } else if (cDef == (ENEMY_BIT | ENEMY_BIT)) { // Two enemys collide with each other
             hitByOtherEnemy();
+        } else if (cDef == (PLAYER_BIT | LEVEL_END_BIT)) {
+            System.out.println("ENDE");
         }
         //else if (cDef == (ITEM_BIT | OBJECT_BIT)) { // A moving item collides with an object
             //reverseItemVelocity(true, false);
@@ -97,7 +100,7 @@ public class WorldContactListener implements ContactListener {
     }*/
 
     private void takeDamage() {
-        if (fixA.getFilterData().categoryBits == Game.getInstance().getMARIO_BIT())
+        if (fixA.getFilterData().categoryBits == Game.getInstance().getPLAYER_BIT())
             ((Player) fixA.getUserData()).hit((Enemy) fixB.getUserData());
         else
             ((Player) fixB.getUserData()).hit((Enemy) fixA.getUserData());

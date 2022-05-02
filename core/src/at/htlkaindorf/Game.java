@@ -2,11 +2,8 @@ package at.htlkaindorf;
 
 import at.htlkaindorf.screens.MainMenuScreen;
 import at.htlkaindorf.screens.PlayScreen;
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 public class Game extends com.badlogic.gdx.Game {
 	private final int V_WIDTH = 400;
@@ -23,7 +20,8 @@ public class Game extends com.badlogic.gdx.Game {
 	private final short ENEMY_BIT = 64;
 	private final short ENEMY_HEAD_BIT = 128;
 	//private final short ITEM_BIT = 256;
-	private final short MARIO_HEAD_BIT = 512;
+	private final short PLAYER_HEAD_BIT = 512;
+	private final short LEVEL_END_BIT = 1024;
 
 	private static Game instance;
 	private SpriteBatch batch;
@@ -88,7 +86,7 @@ public class Game extends com.badlogic.gdx.Game {
 		return TERRAIN_BIT;
 	}
 
-	public short getMARIO_BIT() {
+	public short getPLAYER_BIT() {
 		return PLAYER_BIT;
 	}
 
@@ -121,7 +119,10 @@ public class Game extends com.badlogic.gdx.Game {
 	}*/
 
 	public short getPLAYER_HEAD_BIT() {
-		return MARIO_HEAD_BIT;
+		return PLAYER_HEAD_BIT;
 	}
 
+	public short getLEVEL_END_BIT() {
+		return LEVEL_END_BIT;
+	}
 }

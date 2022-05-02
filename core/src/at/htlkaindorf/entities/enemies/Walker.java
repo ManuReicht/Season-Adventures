@@ -3,7 +3,6 @@ package at.htlkaindorf.entities.enemies;
 import at.htlkaindorf.Game;
 import at.htlkaindorf.entities.Player;
 import at.htlkaindorf.screens.PlayScreen;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
+
+import java.text.DecimalFormat;
 
 public class Walker extends Enemy{
     private float stateTime;
@@ -41,6 +42,9 @@ public class Walker extends Enemy{
 
     public void update(float dt){
         stateTime += dt;
+        if (reverseTimeout > 0) {
+            reverseTimeout--;
+        }
         if(setToDestroy && !destroyed){
             world.destroyBody(b2body);
             destroyed = true;
@@ -55,6 +59,12 @@ public class Walker extends Enemy{
 
         oldPosition = newPosition;
         newPosition = b2body.getPosition().x;
+
+        System.out.println(oldPosition);
+
+        DecimalFormat df = new DecimalFormat("#.###");
+        oldPosition = Double.valueOf(df.format(oldPosition).replace(",","." ));
+        newPosition = Double.valueOf(df.format(newPosition).replace(",","." ));
 
         if(oldPosition == newPosition) {
             reverseVelocity(true, false);
@@ -80,7 +90,7 @@ public class Walker extends Enemy{
                 //Game.getInstance().getBRICK_BIT() |
                 Game.getInstance().getENEMY_BIT() |
                 Game.getInstance().getOBJECT_BIT() |
-                Game.getInstance().getMARIO_BIT());
+                Game.getInstance().getPLAYER_BIT());
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
