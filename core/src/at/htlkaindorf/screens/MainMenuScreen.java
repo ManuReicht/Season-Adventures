@@ -32,7 +32,7 @@ public class MainMenuScreen implements Screen {
         stage.addActor(table);
 
         // temporary until we have asset manager in
-        Skin skin = new Skin(Gdx.files.internal("skins/glassy-ui.json"));
+        Skin skin = new Skin(Gdx.files.internal("skins/shade/uiskin.json"));
 
         //create buttons
         TextButton newGame = new TextButton("New Game", skin);
@@ -40,11 +40,15 @@ public class MainMenuScreen implements Screen {
         TextButton exit = new TextButton("Exit", skin);
 
         //add buttons to table
+        table.row().pad(10, 0, 0, 0);
         table.add(newGame).fillX().uniformX();
-        table.row().pad(10, 0, 10, 0);
+        table.row().pad(10, 0, 0, 0);
+        table.add(newGame).fillX().uniformX();
+        table.row().pad(10, 0, 0, 0);
         table.add(preferences).fillX().uniformX();
-        table.row();
+        table.row().pad(10, 0, 0, 0);
         table.add(exit).fillX().uniformX();
+        table.row().pad(10, 0, 0, 0);
 
         //stage.getViewport().update(width, height, true);
         exit.addListener(new ChangeListener() {
@@ -65,7 +69,7 @@ public class MainMenuScreen implements Screen {
         preferences.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("preferences button");
+                System.out.println("load game button");
             }
         });
 
