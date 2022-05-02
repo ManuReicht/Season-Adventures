@@ -48,7 +48,7 @@ public class WorldContactListener implements ContactListener {
         } else if (cDef == (ENEMY_BIT | ENEMY_BIT)) { // Two enemys collide with each other
             hitByOtherEnemy();
         } else if (cDef == (PLAYER_BIT | LEVEL_END_BIT)) {
-            System.out.println("ENDE");
+            Game.getInstance().loadMap("test");
         }
         //else if (cDef == (ITEM_BIT | OBJECT_BIT)) { // A moving item collides with an object
             //reverseItemVelocity(true, false);

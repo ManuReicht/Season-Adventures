@@ -3,6 +3,7 @@ package at.htlkaindorf.tools;
 import at.htlkaindorf.Game;
 import at.htlkaindorf.entities.enemies.Enemy;
 import at.htlkaindorf.entities.enemies.Walker;
+import at.htlkaindorf.objects.LevelEnd;
 import at.htlkaindorf.screens.PlayScreen;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -50,18 +51,8 @@ public class B2WorldCreator {
 
         //create level end
         for(MapObject object : map.getLayers().get(13).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / Game.getInstance().getPPM(),
-                    (rect.getY() + rect.getHeight() / 2) / Game.getInstance().getPPM());
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 / Game.getInstance().getPPM(),
-                    rect.getHeight() / 2 / Game.getInstance().getPPM());
-            fdef.shape = shape;
-            body.createFixture(fdef);
+            new LevelEnd(screen, object);
+            System.out.println("LEVEL END");
         }
     }
 

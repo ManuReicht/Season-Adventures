@@ -60,8 +60,6 @@ public class Walker extends Enemy{
         oldPosition = newPosition;
         newPosition = b2body.getPosition().x;
 
-        System.out.println(oldPosition);
-
         DecimalFormat df = new DecimalFormat("#.###");
         oldPosition = Double.valueOf(df.format(oldPosition).replace(",","." ));
         newPosition = Double.valueOf(df.format(newPosition).replace(",","." ));
