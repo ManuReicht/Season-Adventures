@@ -83,6 +83,11 @@ public class Game extends com.badlogic.gdx.Game {
     }
 
     public void loadNextMap() {
+        if(currentLevel.equals("test")) {
+            reloadGame();
+            return;
+        }
+
         int world = Integer.parseInt(currentLevel.split("-")[0]);
         int level = Integer.parseInt(currentLevel.split("-")[1]);
 
