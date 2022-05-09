@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
+import java.text.DecimalFormat;
+
 public class Player extends Sprite {
     public static final int MAX_JUMP_HEIGHT = 35;
     public enum State { FALLING, JUMPING, STANDING, RUNNING, DEAD};
@@ -29,6 +31,9 @@ public class Player extends Sprite {
 
     private World world;
     private Body b2body;
+
+    private double oldPosition;
+    private double newPosition;
 
     private PlayScreen screen;
 
@@ -60,11 +65,27 @@ public class Player extends Sprite {
 
         //set initial values for players location, width and height. And initial frame as playerStand.
         setBounds(0, 0, 16 / Game.getInstance().getPPM(), 16 / Game.getInstance().getPPM());
+
+        oldPosition = b2body.getPosition().y;
+        newPosition =  oldPosition + 100;
     }
 
     public void update(float dt){
         setRegion(getFrame(dt));
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+
+        oldPosition = newPosition;
+        newPosition = b2body.getPosition().y;
+
+        DecimalFormat df = new DecimalFormat("#.###");
+        oldPosition = Double.valueOf(df.format(oldPosition).replace(",","." ));
+        newPosition = Double.valueOf(df.format(newPosition).replace(",","." ));
+
+        if(oldPosition == newPosition && gainHeight && yBeforeJump < (b2body.getPosition().y - 0.15) && b2body.getLinearVelocity().y == 0) {
+            gainHeight = false;
+            newPosition += 100;
+        }
+        System.out.println(b2body.getLinearVelocity().y);
     }
 
     public TextureRegion getFrame(float dt){
