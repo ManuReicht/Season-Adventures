@@ -20,7 +20,7 @@ public class Player extends Sprite {
 
     private Animation run;
     private Animation idle;
-    private Animation jump;
+    private TextureRegion jump;
 
     private float stateTimer;
     private boolean runningRight;
@@ -53,6 +53,8 @@ public class Player extends Sprite {
         }
         idle = new Animation(0.07f, frames);
 
+        jump = new TextureRegion(screen.getAtlas().findRegion("player_jump"), 0, 0, 32, 32);
+
         //define player in Box2d
         definePlayer();
 
@@ -79,13 +81,13 @@ public class Player extends Sprite {
                     runGrowAnimation = false;
                 }
                 break;*/
-            /*case JUMPING:
-                region = marioIsBig ? bigMarioJump : marioJump;
-                break;*/
+            case JUMPING:
+                region = jump;
+                break;
+            case FALLING:
             case RUNNING:
                 region = (TextureRegion) run.getKeyFrame(stateTimer, true);
                 break;
-            case FALLING:
             case STANDING:
             default:
                 region = (TextureRegion) idle.getKeyFrame(stateTimer, true);
@@ -109,7 +111,6 @@ public class Player extends Sprite {
         stateTimer = currentState == previousState ? stateTimer + dt : 0;
         //update previous state
         previousState = currentState;
-        System.out.println(currentState);
         //return our final adjusted frame
         return region;
 

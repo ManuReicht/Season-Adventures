@@ -17,7 +17,8 @@ import java.text.DecimalFormat;
 
 public class Walker extends Enemy{
     private float stateTime;
-    private Animation<TextureRegion> walkAnimation;
+    private Animation<TextureRegion> walk;
+    private Animation<TextureRegion> die;
     private Array<TextureRegion> frames;
     private boolean setToDestroy;
     private boolean destroyed;
@@ -25,19 +26,28 @@ public class Walker extends Enemy{
 
     private double oldPosition = b2body.getPosition().x;
     private double newPosition = oldPosition + 100;
+    private boolean runningLeft;
 
 
     public Walker(PlayScreen screen, float x, float y) {
         super(screen, x, y);
-        //frames = new Array<TextureRegion>();
-        //for(int i = 0; i < 2; i++)
-          //  frames.add(new TextureRegion(screen.getAtlas().findRegion("walker0"), i * 16, 0, 16, 16));
-        //walkAnimation = new Animation(0.4f, frames);
+
+        frames = new Array<TextureRegion>();
+        for(int i = 1; i < 16; i++)
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("angry_pig_walk"), i * 36, 0, 36, 30));
+        walk = new Animation(0.07f, frames);
+
+        frames.clear();
+        for(int i = 1; i < 5; i++)
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("angry_pig_hit_one"), i * 36, 0, 36, 30));
+        die = new Animation(0.07f, frames);
+
         stateTime = 0;
         setBounds(getX(), getY(), 16 / Game.getInstance().getPPM(), 16 / Game.getInstance().getPPM());
         setToDestroy = false;
         destroyed = false;
         angle = 0;
+        runningLeft = true;
     }
 
     public void update(float dt){
@@ -48,13 +58,24 @@ public class Walker extends Enemy{
         if(setToDestroy && !destroyed){
             world.destroyBody(b2body);
             destroyed = true;
-            //setRegion(new TextureRegion(screen.getAtlas().findRegion("walker0"), 32, 0, 16, 16));
+            setRegion(die.getKeyFrame(stateTime, true));
             stateTime = 0;
         }
         else if(!destroyed) {
             b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-            //setRegion(walkAnimation.getKeyFrame(stateTime, true));
+
+            TextureRegion region = walk.getKeyFrame(stateTime, true);
+            if ((b2body.getLinearVelocity().x < 0 || runningLeft) && region.isFlipX()){
+                region.flip(true, false);
+                runningLeft = true;
+                System.out.println("Flip left");
+            } else if((b2body.getLinearVelocity().x > 0 || !runningLeft) && !region.isFlipX()){
+                region.flip(true, false);
+                runningLeft = false;
+                System.out.println("Flip right");
+            }
+            setRegion(region);
         }
 
         oldPosition = newPosition;

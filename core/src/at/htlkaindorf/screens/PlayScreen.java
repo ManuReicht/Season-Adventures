@@ -165,11 +165,13 @@ public class PlayScreen implements Screen{
         renderer.render();
 
         //renderer our Box2DDebugLines
-        b2dr.render(world, gamecam.combined);
+        //b2dr.render(world, gamecam.combined);
         Game.getInstance().getBatch().setProjectionMatrix(gamecam.combined);
 
         Game.getInstance().getBatch().begin();
         player.draw(Game.getInstance().getBatch());
+        for (Enemy enemy : creator.getEnemies())
+            enemy.draw(Game.getInstance().getBatch());
         Game.getInstance().getBatch().end();
 
         //Set our batch to now draw what the Hud camera sees.
