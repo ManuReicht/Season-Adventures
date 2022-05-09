@@ -52,6 +52,7 @@ public class PlayScreen implements Screen{
         //create cam used to follow mario through cam world
         gamecam = new OrthographicCamera();
 
+
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(Game.getInstance().getV_WIDTH() / Game.getInstance().getPPM(),
                                    Game.getInstance().getV_HEIGHT() / Game.getInstance().getPPM(), gamecam);
@@ -60,6 +61,10 @@ public class PlayScreen implements Screen{
         maploader = new TmxMapLoader();
         map = maploader.load("maps/" + mapName + ".tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / Game.getInstance().getPPM());
+
+        //create hud & set Level Name
+        hud = new Hud(Game.getInstance().getBatch());
+        hud.setLevelName(mapName);
 
         //initially set our gamcam to be centered correctly at the start of of map
         gamecam.position.set((gamePort.getWorldWidth() / 2), gamePort.getWorldHeight() / 2, 0);
@@ -70,8 +75,6 @@ public class PlayScreen implements Screen{
         b2dr = new Box2DDebugRenderer();
 
         creator = new B2WorldCreator(this);
-
-        hud = new Hud(Game.getInstance().getBatch());
 
         //create mario in our game world
         player = new Player(this);

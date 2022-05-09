@@ -61,7 +61,7 @@ public class MainMenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println("new game button");
-                Game.getInstance().loadMap("test");
+                Game.getInstance().loadMap("1-1");
             }
         });
 

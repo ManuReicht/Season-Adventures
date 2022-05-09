@@ -113,4 +113,8 @@ public class Hud implements Disposable{
     public Stage getStage() {
         return stage;
     }
+
+    public void setLevelName(String name){
+        lblLevel.setText(name);
+    }
 }

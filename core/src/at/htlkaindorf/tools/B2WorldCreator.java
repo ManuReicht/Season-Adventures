@@ -26,7 +26,7 @@ public class B2WorldCreator {
         Body body;
 
         //create terrain
-        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -43,14 +43,14 @@ public class B2WorldCreator {
 
         //create enemies
         walkers = new Array<Walker>();
-        for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             walkers.add(new Walker(screen, rect.getX() / Game.getInstance().getPPM(),
                     rect.getY() / Game.getInstance().getPPM()));
         }
 
         //create level end
-        for(MapObject object : map.getLayers().get(13).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(12).getObjects().getByType(RectangleMapObject.class)){
             new LevelEnd(screen, object);
             System.out.println("LEVEL END");
         }

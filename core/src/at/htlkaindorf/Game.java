@@ -6,93 +6,124 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Game extends com.badlogic.gdx.Game {
-	private final int V_WIDTH = 400;
-	private final int V_HEIGHT = 208;
-	private final float PPM = 100;
+    private final int V_WIDTH = 400;
+    private final int V_HEIGHT = 208;
+    private final float PPM = 100;
 
-	private final short NOTHING_BIT = 0;
-	private final short TERRAIN_BIT = 1;
-	private final short PLAYER_BIT = 2;
-	//private final short BRICK_BIT = 4;
-	//private final short COIN_BIT = 8;
-	//private final short DESTROYED_BIT = 16;
-	private final short OBJECT_BIT = 32;
-	private final short ENEMY_BIT = 64;
-	private final short ENEMY_HEAD_BIT = 128;
-	//private final short ITEM_BIT = 256;
-	private final short PLAYER_HEAD_BIT = 512;
-	private final short LEVEL_END_BIT = 1024;
+    private final short NOTHING_BIT = 0;
+    private final short TERRAIN_BIT = 1;
+    private final short PLAYER_BIT = 2;
+    //private final short BRICK_BIT = 4;
+    //private final short COIN_BIT = 8;
+    //private final short DESTROYED_BIT = 16;
+    private final short OBJECT_BIT = 32;
+    private final short ENEMY_BIT = 64;
+    private final short ENEMY_HEAD_BIT = 128;
+    //private final short ITEM_BIT = 256;
+    private final short PLAYER_HEAD_BIT = 512;
+    private final short LEVEL_END_BIT = 1024;
 
-	private static Game instance;
-	private SpriteBatch batch;
+    private static Game instance;
+    private SpriteBatch batch;
 
-	private AssetManager manager;
+    private AssetManager manager;
 
-	private Game() {}
+    private String currentLevel;
 
-	public static Game getInstance() {
-		if (instance == null) {
-			instance = new Game();
-		}
-		return instance;
-	}
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		manager = new AssetManager();
+    private int totalNumberOfLevelsInWorld = 2;
+    private int totalNumberOfWorlds = 1;
 
-		manager.finishLoading();
-		//setScreen(new PlayScreen());
-		setScreen(new MainMenuScreen());
-	}
+    private Game() {
+    }
 
-	@Override
-	public void render () {
-		super.render();
-	}
-	
-	@Override
-	public void dispose () {
-		super.dispose();
-		manager.dispose();
-		batch.dispose();
-	}
+    public static Game getInstance() {
+        if (instance == null) {
+            instance = new Game();
+        }
+        return instance;
+    }
 
-	public SpriteBatch getBatch() {
-		return batch;
-	}
-	public AssetManager getManager() {
-		return manager;
-	}
+    @Override
+    public void create() {
+        batch = new SpriteBatch();
+        manager = new AssetManager();
 
-	public void loadMap(String mapName){
-		setScreen(new PlayScreen(mapName));
-	}
+        manager.finishLoading();
+        //setScreen(new PlayScreen());
+        setScreen(new MainMenuScreen());
+    }
 
-	public int getV_WIDTH() {
-		return V_WIDTH;
-	}
-	public int getV_HEIGHT() {
-		return V_HEIGHT;
-	}
-	public float getPPM() { return PPM; }
+    @Override
+    public void render() {
+        super.render();
+    }
 
-	public void reloadGame(){
-		loadMap("test");
-	}
+    @Override
+    public void dispose() {
+        super.dispose();
+        manager.dispose();
+        batch.dispose();
+    }
 
-	public short getNOTHING_BIT() {
-		return NOTHING_BIT;
-	}
+    public SpriteBatch getBatch() {
+        return batch;
+    }
 
-	public short getTERRAIN_BIT() {
-		return TERRAIN_BIT;
-	}
+    public AssetManager getManager() {
+        return manager;
+    }
 
-	public short getPLAYER_BIT() {
-		return PLAYER_BIT;
-	}
+    public void loadMap(String mapName) {
+        currentLevel = mapName;
+        setScreen(new PlayScreen(mapName));
+    }
+
+    public void reloadGame() {
+        loadMap(currentLevel);
+    }
+
+    public void loadNextMap() {
+        int world = Integer.parseInt(currentLevel.split("-")[0]);
+        int level = Integer.parseInt(currentLevel.split("-")[1]);
+
+        if (level < totalNumberOfLevelsInWorld) {
+            level++;
+        } else {
+            if (world < totalNumberOfWorlds) {
+                world++;
+            } else {
+                world = 1;
+            }
+            level = 1;
+        }
+
+        loadMap(world + "-" + level);
+    }
+
+
+    public int getV_WIDTH() {
+        return V_WIDTH;
+    }
+
+    public int getV_HEIGHT() {
+        return V_HEIGHT;
+    }
+
+    public float getPPM() {
+        return PPM;
+    }
+
+    public short getNOTHING_BIT() {
+        return NOTHING_BIT;
+    }
+
+    public short getTERRAIN_BIT() {
+        return TERRAIN_BIT;
+    }
+
+    public short getPLAYER_BIT() {
+        return PLAYER_BIT;
+    }
 
 	/*public short getBRICK_BIT() {
 		return BRICK_BIT;
@@ -106,27 +137,27 @@ public class Game extends com.badlogic.gdx.Game {
 		return DESTROYED_BIT;
 	}*/
 
-	public short getOBJECT_BIT() {
-		return OBJECT_BIT;
-	}
+    public short getOBJECT_BIT() {
+        return OBJECT_BIT;
+    }
 
-	public short getENEMY_BIT() {
-		return ENEMY_BIT;
-	}
+    public short getENEMY_BIT() {
+        return ENEMY_BIT;
+    }
 
-	public short getENEMY_HEAD_BIT() {
-		return ENEMY_HEAD_BIT;
-	}
+    public short getENEMY_HEAD_BIT() {
+        return ENEMY_HEAD_BIT;
+    }
 
 	/*public short getITEM_BIT() {
 		return ITEM_BIT;
 	}*/
 
-	public short getPLAYER_HEAD_BIT() {
-		return PLAYER_HEAD_BIT;
-	}
+    public short getPLAYER_HEAD_BIT() {
+        return PLAYER_HEAD_BIT;
+    }
 
-	public short getLEVEL_END_BIT() {
-		return LEVEL_END_BIT;
-	}
+    public short getLEVEL_END_BIT() {
+        return LEVEL_END_BIT;
+    }
 }
