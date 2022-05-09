@@ -19,14 +19,14 @@ https://libgdx.com/
 2. Objektebenen
     * ID 4: Terrain (3)
     * ID 5: Standard Collectibles (4)
-    * ID 6: Special Collectibles ()
-    * ID 7: Walker (Gegner 1)
-    * ID 8: Gegner 2
-    * ID 9: Gegner 3
-    * ID 10: Movable Platform y
-    * ID 11: Movable Platform x
-    * ID 12: Trap
-    * ID 13: Level End
+    * ID 6: Special Collectibles (5)
+    * ID 7: Walker (Gegner 1) (6)
+    * ID 8: Gegner 2 (7)
+    * ID 9: Gegner 3 (8)
+    * ID 10: Movable Platform y (9)
+    * ID 11: Movable Platform x (10)
+    * ID 12: Trap (11)
+    * ID 13: Level End (12)
 
 ### Laden der IDs
 * ID -1
