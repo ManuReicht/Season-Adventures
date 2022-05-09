@@ -12,18 +12,22 @@ https://libgdx.com/
 ## Richtlinen für Levelerstellung (Ebenen)
 
 1. Kachelebenen
-    * ID 1: Background
-    * ID 2: Graphic Layer
-    * ID 3: Foreground
-    * ID 14: Dummy Objects (Orientierung) (visible="0")
+    * ID 1: Background (0)
+    * ID 2: Graphic Layer (1)
+    * ID 3: Foreground (2)
+    * ID 14: Dummy Objects (Orientierung) (visible="0") (13)
 2. Objektebenen
-    * ID 4: Terrain
-    * ID 5: Standard Collectibles
-    * ID 6: Special Collectibles
+    * ID 4: Terrain (3)
+    * ID 5: Standard Collectibles (4)
+    * ID 6: Special Collectibles ()
     * ID 7: Walker (Gegner 1)
     * ID 8: Gegner 2
     * ID 9: Gegner 3
     * ID 10: Movable Platform y
     * ID 11: Movable Platform x
     * ID 12: Trap
-    * ID 13 :Level end
+    * ID 13: Level End
+
+### Laden der IDs
+* ID -1
+* Es wird die Reihenfolge in der Liste genommen (beginned bei 0)
