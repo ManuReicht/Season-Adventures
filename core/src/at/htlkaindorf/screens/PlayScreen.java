@@ -47,7 +47,7 @@ public class PlayScreen implements Screen{
     private Player player;
 
     public PlayScreen(String mapName){
-        //atlas = new TextureAtlas("Mario_and_Enemies.pack");
+        atlas = new TextureAtlas("sprites/Player_Enemies.pack");
 
         //create cam used to follow mario through cam world
         gamecam = new OrthographicCamera();
@@ -58,7 +58,7 @@ public class PlayScreen implements Screen{
 
         //Load our map and setup our map renderer
         maploader = new TmxMapLoader();
-        map = maploader.load("maps/"+mapName+".tmx");
+        map = maploader.load("maps/" + mapName + ".tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / Game.getInstance().getPPM());
 
         //initially set our gamcam to be centered correctly at the start of of map
@@ -106,14 +106,19 @@ public class PlayScreen implements Screen{
 
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getB2body().getLinearVelocity().x <= 2)
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getB2body().getLinearVelocity().x <= 1.5)
             player.moveRight();
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.getB2body().getLinearVelocity().x >= -2)
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.getB2body().getLinearVelocity().x >= -1.5)
             player.moveLeft();
         player.updateCurrentState();
     }
 
     public void update(float dt){
+
+        //if player is dead, restart the game
+        if(player.getCurrentState() == Player.State.DEAD){
+            Game.getInstance().reloadGame();
+        }
 
         //handle user input first
         handleInput(dt);
@@ -139,11 +144,6 @@ public class PlayScreen implements Screen{
         //tell our renderer to draw only what our camera can see in our game world.
         renderer.setView(gamecam);
 
-        //if player is dead, restart the game
-        if(player.getCurrentState() == Player.State.DEAD){
-            Game.getInstance().reloadGame();
-        }
-
         hud.update(dt);
 
     }
@@ -165,9 +165,9 @@ public class PlayScreen implements Screen{
         b2dr.render(world, gamecam.combined);
         Game.getInstance().getBatch().setProjectionMatrix(gamecam.combined);
 
-        //Game.getInstance().getBatch().begin();
-        //player.draw(Game.getInstance().getBatch());
-        //Game.getInstance().getBatch().end();
+        Game.getInstance().getBatch().begin();
+        player.draw(Game.getInstance().getBatch());
+        Game.getInstance().getBatch().end();
 
         //Set our batch to now draw what the Hud camera sees.
         Game.getInstance().getBatch().setProjectionMatrix(hud.getStage().getCamera().combined);

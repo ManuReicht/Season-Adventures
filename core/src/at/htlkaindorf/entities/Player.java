@@ -3,6 +3,7 @@ package at.htlkaindorf.entities;
 import at.htlkaindorf.Game;
 import at.htlkaindorf.entities.enemies.Enemy;
 import at.htlkaindorf.screens.PlayScreen;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,6 +18,12 @@ public class Player extends Sprite {
     private State currentState;
     private State previousState;
 
+    private Animation run;
+    private Animation idle;
+    private Animation jump;
+
+    private float stateTimer;
+    private boolean runningRight;
     private float yBeforeJump;
     private boolean gainHeight = true;
 
@@ -29,7 +36,22 @@ public class Player extends Sprite {
         //initialize default values
         this.screen = screen;
         this.world = screen.getWorld();
+        stateTimer = 0;
+        runningRight = true;
+
         Array<TextureRegion> frames = new Array<TextureRegion>();
+
+        for(int i = 1; i < 12; i++) {
+            System.out.println(i);
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("player_run"), i * 32, 0, 32, 32));
+        }
+        run = new Animation(0.07f, frames);
+
+        frames.clear();
+        for(int i = 1; i < 11; i++) {
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("player_idle"), i * 32, 0, 32, 32));
+        }
+        idle = new Animation(0.07f, frames);
 
         //define player in Box2d
         definePlayer();
@@ -39,6 +61,57 @@ public class Player extends Sprite {
     }
 
     public void update(float dt){
+        setRegion(getFrame(dt));
+        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+    }
+
+    public TextureRegion getFrame(float dt){
+        TextureRegion region;
+
+        //depending on the state, get corresponding animation keyFrame.
+        switch(currentState){
+            /*case DEAD:
+                region = marioDead;
+                break;*/
+            /*case GROWING:
+                region = (TextureRegion) growMario.getKeyFrame(stateTimer);
+                if(growMario.isAnimationFinished(stateTimer)) {
+                    runGrowAnimation = false;
+                }
+                break;*/
+            /*case JUMPING:
+                region = marioIsBig ? bigMarioJump : marioJump;
+                break;*/
+            case RUNNING:
+                region = (TextureRegion) run.getKeyFrame(stateTimer, true);
+                break;
+            case FALLING:
+            case STANDING:
+            default:
+                region = (TextureRegion) idle.getKeyFrame(stateTimer, true);
+                break;
+        }
+
+        //if mario is running left and the texture isnt facing left... flip it.
+        if((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()){
+            region.flip(true, false);
+            runningRight = false;
+        }
+
+        //if mario is running right and the texture isnt facing right... flip it.
+        else if((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()){
+            region.flip(true, false);
+            runningRight = true;
+        }
+
+        //if the current state is the same as the previous state increase the state timer.
+        //otherwise the state has changed and we need to reset timer.
+        stateTimer = currentState == previousState ? stateTimer + dt : 0;
+        //update previous state
+        previousState = currentState;
+        System.out.println(currentState);
+        //return our final adjusted frame
+        return region;
 
     }
 

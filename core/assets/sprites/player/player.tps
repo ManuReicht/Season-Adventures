@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>libgdx</string>
         <key>textureFileName</key>
-        <filename>sprites.png</filename>
+        <filename></filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrQualityLevel</key>
@@ -78,7 +78,7 @@
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
-        <uint>0</uint>
+        <uint>1</uint>
         <key>webpQualityLevel</key>
         <uint>101</uint>
         <key>textureSubPath</key>
@@ -106,7 +106,7 @@
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
-            <enum type="AlgorithmSettings::AlgorithmId">Grid</enum>
+            <enum type="AlgorithmSettings::AlgorithmId">Basic</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
@@ -136,7 +136,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>sprites.txt</filename>
+                <filename></filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -153,7 +153,7 @@
             <string></string>
         </struct>
         <key>autoAliasEnabled</key>
-        <false/>
+        <true/>
         <key>trimSpriteNames</key>
         <false/>
         <key>prependSmartFolderName</key>
@@ -167,13 +167,13 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>0</uint>
+            <uint>1</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
             <uint>1</uint>
             <key>trimMode</key>
-            <enum type="SpriteSettings::TrimMode">None</enum>
+            <enum type="SpriteSettings::TrimMode">Trim</enum>
             <key>tracerTolerance</key>
             <int>200</int>
             <key>heuristicMask</key>
@@ -185,7 +185,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/Double Jump (32x32).png</key>
+            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/double_jump.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -200,8 +200,8 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/Fall (32x32).png</key>
-            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/Jump (32x32).png</key>
+            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/fall.png</key>
+            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/jump.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -216,7 +216,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/Hit (32x32).png</key>
+            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/hit.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -231,7 +231,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/Idle (32x32).png</key>
+            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/idle.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -246,7 +246,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/Run (32x32).png</key>
+            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/run.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -261,7 +261,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/Wall Jump (32x32).png</key>
+            <key type="filename">../Pixel Adventure 1/Free/Main Characters/Mask Dude/wall_jump.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -279,13 +279,13 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/Double Jump (32x32).png</filename>
-            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/Fall (32x32).png</filename>
-            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/Hit (32x32).png</filename>
-            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/Idle (32x32).png</filename>
-            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/Jump (32x32).png</filename>
-            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/Run (32x32).png</filename>
-            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/Wall Jump (32x32).png</filename>
+            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/double_jump.png</filename>
+            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/fall.png</filename>
+            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/hit.png</filename>
+            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/idle.png</filename>
+            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/jump.png</filename>
+            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/run.png</filename>
+            <filename>../Pixel Adventure 1/Free/Main Characters/Mask Dude/wall_jump.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
