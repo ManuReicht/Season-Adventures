@@ -47,7 +47,6 @@ public class Player extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 1; i < 12; i++) {
-            System.out.println(i);
             frames.add(new TextureRegion(screen.getAtlas().findRegion("player_run"), i * 32, 0, 32, 32));
         }
         run = new Animation(0.07f, frames);
@@ -81,11 +80,10 @@ public class Player extends Sprite {
         oldPosition = Double.valueOf(df.format(oldPosition).replace(",","." ));
         newPosition = Double.valueOf(df.format(newPosition).replace(",","." ));
 
-        if(oldPosition == newPosition && gainHeight && yBeforeJump < (b2body.getPosition().y - 0.15) && b2body.getLinearVelocity().y == 0) {
+        if(onCeiling()) {
             gainHeight = false;
             newPosition += 100;
         }
-        System.out.println(b2body.getLinearVelocity().y);
     }
 
     public TextureRegion getFrame(float dt){
@@ -204,6 +202,16 @@ public class Player extends Sprite {
         fdef.isSensor = true;
 
         b2body.createFixture(fdef).setUserData(this);
+    }
+
+    public boolean onCeiling() {
+        if (oldPosition == newPosition && gainHeight && yBeforeJump < b2body.getPosition().y
+                && b2body.getLinearVelocity().y == 0 && previousState.equals(State.JUMPING)
+                && currentState.equals(State.JUMPING)) {
+            return true;
+        }
+
+        return false;
     }
 
     public void draw(Batch batch){

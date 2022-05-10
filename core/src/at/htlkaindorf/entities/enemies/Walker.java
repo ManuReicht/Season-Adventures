@@ -69,11 +69,9 @@ public class Walker extends Enemy{
             if ((b2body.getLinearVelocity().x < 0 || runningLeft) && region.isFlipX()){
                 region.flip(true, false);
                 runningLeft = true;
-                System.out.println("Flip left");
             } else if((b2body.getLinearVelocity().x > 0 || !runningLeft) && !region.isFlipX()){
                 region.flip(true, false);
                 runningLeft = false;
-                System.out.println("Flip right");
             }
             setRegion(region);
         }
@@ -88,7 +86,6 @@ public class Walker extends Enemy{
         if(oldPosition == newPosition) {
             reverseVelocity(true, false);
             newPosition += 100;
-            //System.out.println("Reverse");
         }
 
     }
