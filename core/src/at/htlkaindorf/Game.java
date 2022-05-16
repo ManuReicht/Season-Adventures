@@ -29,6 +29,8 @@ public class Game extends com.badlogic.gdx.Game {
     private AssetManager manager;
 
     private String currentLevel;
+    private Season currentSeason;
+    public enum Season { SPRING, SUMMER, AUTUMN, WINTER};
 
     private PlayScreen currentPlayScreen = null;
 
@@ -78,6 +80,7 @@ public class Game extends com.badlogic.gdx.Game {
     public void loadMap(String mapName) {
         currentLevel = mapName;
         currentPlayScreen = new PlayScreen(mapName);
+        setCurrentSeason();
         setScreen(currentPlayScreen);
     }
 
@@ -91,21 +94,21 @@ public class Game extends com.badlogic.gdx.Game {
             return;
         }
 
-        int world = Integer.parseInt(currentLevel.split("-")[0]);
+        int season = Integer.parseInt(currentLevel.split("-")[0]);
         int level = Integer.parseInt(currentLevel.split("-")[1]);
 
         if (level < totalNumberOfLevelsInWorld) {
             level++;
         } else {
-            if (world < totalNumberOfWorlds) {
-                world++;
+            if (season < totalNumberOfWorlds) {
+                season++;
             } else {
-                world = 1;
+                season = 1;
             }
             level = 1;
         }
 
-        loadMap(world + "-" + level);
+        loadMap(season + "-" + level);
     }
 
 
@@ -171,5 +174,27 @@ public class Game extends com.badlogic.gdx.Game {
 
     public PlayScreen getCurrentPlayScreen() {
         return currentPlayScreen;
+    }
+
+    public void setCurrentSeason(){
+        int season = Integer.parseInt(currentLevel.split("-")[0]);
+        switch(season){
+            case 1:
+                currentSeason = Season.SPRING;
+                break;
+            case 2:
+                currentSeason = Season.SUMMER;
+                break;
+            case 3:
+                currentSeason = Season.AUTUMN;
+                break;
+            case 4:
+                currentSeason = Season.WINTER;
+                break;
+        }
+    }
+
+    public Season getCurrentSeason() {
+        return currentSeason;
     }
 }
