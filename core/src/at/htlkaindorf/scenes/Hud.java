@@ -2,6 +2,9 @@ package at.htlkaindorf.scenes;
 
 import at.htlkaindorf.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -95,12 +98,14 @@ public class Hud implements Disposable{
             timeCount = 0;
         }
 
+        lblScore.setText(String.format("%06d", score));
+
         if(timeUp){
             Game.getInstance().reloadGame();
         }
     }
 
-    public static void addScore(int value){
+    public void addScore(int value){
         score += value;
         lblScore.setText(String.format("%06d", score));
     }

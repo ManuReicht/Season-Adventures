@@ -30,6 +30,8 @@ public class Game extends com.badlogic.gdx.Game {
 
     private String currentLevel;
 
+    private PlayScreen currentPlayScreen = null;
+
     private int totalNumberOfLevelsInWorld = 2;
     private int totalNumberOfWorlds = 1;
 
@@ -75,7 +77,8 @@ public class Game extends com.badlogic.gdx.Game {
 
     public void loadMap(String mapName) {
         currentLevel = mapName;
-        setScreen(new PlayScreen(mapName));
+        currentPlayScreen = new PlayScreen(mapName);
+        setScreen(currentPlayScreen);
     }
 
     public void reloadGame() {
@@ -164,5 +167,9 @@ public class Game extends com.badlogic.gdx.Game {
 
     public short getLEVEL_END_BIT() {
         return LEVEL_END_BIT;
+    }
+
+    public PlayScreen getCurrentPlayScreen() {
+        return currentPlayScreen;
     }
 }

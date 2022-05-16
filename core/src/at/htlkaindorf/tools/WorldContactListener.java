@@ -40,6 +40,7 @@ public class WorldContactListener implements ContactListener {
         //}
         if (cDef == (ENEMY_HEAD_BIT | PLAYER_BIT)) { // Player collides with the head of an enemy
             jumpOnEnemy();
+            Game.getInstance().getCurrentPlayScreen().getHud().addScore(50);
         }
         //else if (cDef == (ENEMY_BIT | OBJECT_BIT)) { // Enemy collides with an object
         //  reverseEnemyVelocity(true, false);
@@ -57,6 +58,7 @@ public class WorldContactListener implements ContactListener {
         //}
         else if (cDef == (COLLECTABLE_BIT | PLAYER_BIT)) { // An item collides with the player
             collectItem();
+            Game.getInstance().getCurrentPlayScreen().getHud().addScore(100);
             System.out.println("Collected");
         }
     }
