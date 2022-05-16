@@ -4,6 +4,7 @@ import at.htlkaindorf.Game;
 import at.htlkaindorf.entities.collectables.Coin;
 import at.htlkaindorf.entities.enemies.Enemy;
 import at.htlkaindorf.entities.enemies.Walker;
+import at.htlkaindorf.entities.factories.*;
 import at.htlkaindorf.objects.LevelEnd;
 import at.htlkaindorf.screens.PlayScreen;
 import com.badlogic.gdx.maps.MapObject;
@@ -18,7 +19,7 @@ public class B2WorldCreator {
     private Array<Walker> walkers;
     private Array<Coin> coins;
 
-    public B2WorldCreator(PlayScreen screen){
+    public B2WorldCreator(PlayScreen screen) {
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
         //create body and fixture variables
@@ -28,32 +29,49 @@ public class B2WorldCreator {
         Body body;
 
         //create terrain
-        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set((rect.getX() + rect.getWidth() / 2) / Game.getInstance().getPPM(),
-                              (rect.getY() + rect.getHeight() / 2) / Game.getInstance().getPPM());
+                    (rect.getY() + rect.getHeight() / 2) / Game.getInstance().getPPM());
 
             body = world.createBody(bdef);
 
             shape.setAsBox(rect.getWidth() / 2 / Game.getInstance().getPPM(),
-                          rect.getHeight() / 2 / Game.getInstance().getPPM());
+                    rect.getHeight() / 2 / Game.getInstance().getPPM());
             fdef.shape = shape;
             body.createFixture(fdef);
         }
-
+        System.out.println("test");
         //create enemies
+        Game.getInstance().setCurrentSeason();
+        SeasonFactory seasonFactory = null;
+        switch (Game.getInstance().getCurrentSeason()) {
+            case SPRING:
+                seasonFactory = new SpringFactory();
+                break;
+            case SUMMER:
+                seasonFactory = new SummerFactory();
+                break;
+            case AUTUMN:
+                seasonFactory = new AutumnFactory();
+                break;
+            case WINTER:
+                seasonFactory = new WinterFactory();
+                break;
+        }
+
         walkers = new Array<Walker>();
-        for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            walkers.add(new Walker(screen, rect.getX() / Game.getInstance().getPPM(),
+            walkers.add((Walker) seasonFactory.createWalker(screen, rect.getX() / Game.getInstance().getPPM(),
                     rect.getY() / Game.getInstance().getPPM()));
         }
 
         //create coins
         coins = new Array<Coin>();
-        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             coins.add(new Coin(screen, rect.getX() / Game.getInstance().getPPM(),
                     rect.getY() / Game.getInstance().getPPM()));
@@ -62,15 +80,14 @@ public class B2WorldCreator {
         System.out.println(coins.size);
 
         //create level end
-        for(MapObject object : map.getLayers().get(12).getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object : map.getLayers().get(12).getObjects().getByType(RectangleMapObject.class)) {
             new LevelEnd(screen, object);
             System.out.println("LEVEL END");
         }
     }
 
 
-
-    public Array<Enemy> getEnemies(){
+    public Array<Enemy> getEnemies() {
         Array<Enemy> enemies = new Array<Enemy>();
         enemies.addAll(walkers);
         return enemies;

@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.Array;
 
 import java.text.DecimalFormat;
 
-public class Walker extends Enemy{
+public class Walker extends Enemy {
     private float stateTime;
     private Animation<TextureRegion> walk;
     private Animation<TextureRegion> die;
@@ -29,18 +29,11 @@ public class Walker extends Enemy{
     private boolean runningLeft;
 
 
-    public Walker(PlayScreen screen, float x, float y) {
+    public Walker(PlayScreen screen, float x, float y, Animation walk, Animation die) {
         super(screen, x, y);
 
-        frames = new Array<TextureRegion>();
-        for(int i = 1; i < 16; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("angry_pig_walk"), i * 36, 0, 36, 30));
-        walk = new Animation(0.07f, frames);
-
-        frames.clear();
-        for(int i = 1; i < 5; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("angry_pig_hit_one"), i * 36, 0, 36, 30));
-        die = new Animation(0.07f, frames);
+        this.walk = walk;
+        this.die = die;
 
         stateTime = 0;
         setBounds(getX(), getY(), 16 / Game.getInstance().getPPM(), 16 / Game.getInstance().getPPM());
@@ -50,26 +43,25 @@ public class Walker extends Enemy{
         runningLeft = true;
     }
 
-    public void update(float dt){
+    public void update(float dt) {
         stateTime += dt;
         if (reverseTimeout > 0) {
             reverseTimeout--;
         }
-        if(setToDestroy && !destroyed){
+        if (setToDestroy && !destroyed) {
             world.destroyBody(b2body);
             destroyed = true;
             setRegion(die.getKeyFrame(stateTime, true));
             stateTime = 0;
-        }
-        else if(!destroyed) {
+        } else if (!destroyed) {
             b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
 
             TextureRegion region = walk.getKeyFrame(stateTime, true);
-            if ((b2body.getLinearVelocity().x < 0 || runningLeft) && region.isFlipX()){
+            if ((b2body.getLinearVelocity().x < 0 || runningLeft) && region.isFlipX()) {
                 region.flip(true, false);
                 runningLeft = true;
-            } else if((b2body.getLinearVelocity().x > 0 || !runningLeft) && !region.isFlipX()){
+            } else if ((b2body.getLinearVelocity().x > 0 || !runningLeft) && !region.isFlipX()) {
                 region.flip(true, false);
                 runningLeft = false;
             }
@@ -80,10 +72,10 @@ public class Walker extends Enemy{
         newPosition = b2body.getPosition().x;
 
         DecimalFormat df = new DecimalFormat("#.###");
-        oldPosition = Double.valueOf(df.format(oldPosition).replace(",","." ));
-        newPosition = Double.valueOf(df.format(newPosition).replace(",","." ));
+        oldPosition = Double.valueOf(df.format(oldPosition).replace(",", "."));
+        newPosition = Double.valueOf(df.format(newPosition).replace(",", "."));
 
-        if(oldPosition == newPosition) {
+        if (oldPosition == newPosition) {
             reverseVelocity(true, false);
             newPosition += 100;
         }
@@ -127,11 +119,10 @@ public class Walker extends Enemy{
 
     }
 
-    public void draw(Batch batch){
-        if(!destroyed || stateTime < 1)
+    public void draw(Batch batch) {
+        if (!destroyed || stateTime < 1)
             super.draw(batch);
     }
-
 
 
     @Override
