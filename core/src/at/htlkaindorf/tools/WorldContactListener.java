@@ -2,6 +2,7 @@ package at.htlkaindorf.tools;
 
 import at.htlkaindorf.Game;
 import at.htlkaindorf.entities.Player;
+import at.htlkaindorf.entities.collectables.Collectable;
 import at.htlkaindorf.entities.enemies.Enemy;
 import com.badlogic.gdx.physics.box2d.*;
 
@@ -22,6 +23,7 @@ public class WorldContactListener implements ContactListener {
     //private final static short ITEM_BIT = Game.getInstance().getITEM_BIT();
     private final static short PLAYER_HEAD_BIT = Game.getInstance().getPLAYER_HEAD_BIT();
     private final static short LEVEL_END_BIT = Game.getInstance().getLEVEL_END_BIT();
+    private final static short COLLECTABLE_BIT = Game.getInstance().getCOLLECTABLE_BIT();
 
     private Fixture fixA;
     private Fixture fixB;
@@ -34,13 +36,13 @@ public class WorldContactListener implements ContactListener {
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
         //if (cDef == (PLAYER_HEAD_BIT | BRICK_BIT) || cDef == (PLAYER_HEAD_BIT | COIN_BIT)) { // Player hits destroyable Block with head
-            //destroyBlock();
+        //destroyBlock();
         //}
         if (cDef == (ENEMY_HEAD_BIT | PLAYER_BIT)) { // Player collides with the head of an enemy
             jumpOnEnemy();
         }
         //else if (cDef == (ENEMY_BIT | OBJECT_BIT)) { // Enemy collides with an object
-          //  reverseEnemyVelocity(true, false);
+        //  reverseEnemyVelocity(true, false);
         //}
         else if (cDef == (PLAYER_BIT | ENEMY_BIT)) { // Player collides with an enemy
             takeDamage();
@@ -51,10 +53,12 @@ public class WorldContactListener implements ContactListener {
             Game.getInstance().loadNextMap();
         }
         //else if (cDef == (ITEM_BIT | OBJECT_BIT)) { // A moving item collides with an object
-            //reverseItemVelocity(true, false);
+        //reverseItemVelocity(true, false);
         //}
-        //else if (cDef == (ITEM_BIT | PLAYER_BIT)) { // An item collides with the player
-            //collectItem();
+        else if (cDef == (COLLECTABLE_BIT | PLAYER_BIT)) { // An item collides with the player
+            collectItem();
+            System.out.println("Collected");
+        }
     }
 
     /*private void destroyBlock() {
@@ -85,12 +89,12 @@ public class WorldContactListener implements ContactListener {
             ((Item) fixB.getUserData()).reverseVelocity(x, y);
     }*/
 
-   /* private void collectItem() {
-        if (fixA.getFilterData().categoryBits == Game.getInstance().getITEM_BIT())
-            ((Item) fixA.getUserData()).use((Mario) fixB.getUserData());
+    private void collectItem() {
+        if (fixA.getFilterData().categoryBits == Game.getInstance().getCOLLECTABLE_BIT())
+            ((Collectable) fixA.getUserData()).collect((Player) fixB.getUserData());
         else
-            ((Item) fixB.getUserData()).use((Mario) fixA.getUserData());
-    }*/
+            ((Collectable) fixB.getUserData()).collect((Player) fixA.getUserData());
+    }
 
     /*private void setToDestroy() {
         if (fixA.getFilterData().categoryBits == Game.getInstance().getFIREBALL_BIT())

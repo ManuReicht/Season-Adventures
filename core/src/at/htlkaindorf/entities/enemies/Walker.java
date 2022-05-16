@@ -105,7 +105,7 @@ public class Walker extends Enemy{
                 //Game.getInstance().getCOIN_BIT() |
                 //Game.getInstance().getBRICK_BIT() |
                 Game.getInstance().getENEMY_BIT() |
-                Game.getInstance().getOBJECT_BIT() |
+                Game.getInstance().getCOLLECTABLE_BIT() |
                 Game.getInstance().getPLAYER_BIT());
 
         fdef.shape = shape;

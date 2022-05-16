@@ -184,6 +184,7 @@ public class Player extends Sprite {
                 Game.getInstance().getENEMY_BIT() |
                 //Game.getInstance().getOBJECT_BIT() |
                 Game.getInstance().getENEMY_HEAD_BIT() |
+                Game.getInstance().getCOLLECTABLE_BIT() |
                 Game.getInstance().getLEVEL_END_BIT());
                 //Game.getInstance().getITEM_BIT());
 

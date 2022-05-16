@@ -1,6 +1,7 @@
 package at.htlkaindorf.tools;
 
 import at.htlkaindorf.Game;
+import at.htlkaindorf.entities.collectables.Coin;
 import at.htlkaindorf.entities.enemies.Enemy;
 import at.htlkaindorf.entities.enemies.Walker;
 import at.htlkaindorf.objects.LevelEnd;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class B2WorldCreator {
     private Array<Walker> walkers;
+    private Array<Coin> coins;
 
     public B2WorldCreator(PlayScreen screen){
         World world = screen.getWorld();
@@ -48,6 +50,16 @@ public class B2WorldCreator {
             walkers.add(new Walker(screen, rect.getX() / Game.getInstance().getPPM(),
                     rect.getY() / Game.getInstance().getPPM()));
         }
+
+        //create coins
+        coins = new Array<Coin>();
+        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            coins.add(new Coin(screen, rect.getX() / Game.getInstance().getPPM(),
+                    rect.getY() / Game.getInstance().getPPM()));
+        }
+
+        System.out.println(coins.size);
 
         //create level end
         for(MapObject object : map.getLayers().get(12).getObjects().getByType(RectangleMapObject.class)){

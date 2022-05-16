@@ -16,7 +16,7 @@ public class Game extends com.badlogic.gdx.Game {
     //private final short BRICK_BIT = 4;
     //private final short COIN_BIT = 8;
     //private final short DESTROYED_BIT = 16;
-    private final short OBJECT_BIT = 32;
+    private final short COLLECTABLE_BIT = 32;
     private final short ENEMY_BIT = 64;
     private final short ENEMY_HEAD_BIT = 128;
     //private final short ITEM_BIT = 256;
@@ -142,8 +142,8 @@ public class Game extends com.badlogic.gdx.Game {
 		return DESTROYED_BIT;
 	}*/
 
-    public short getOBJECT_BIT() {
-        return OBJECT_BIT;
+    public short getCOLLECTABLE_BIT() {
+        return COLLECTABLE_BIT;
     }
 
     public short getENEMY_BIT() {
