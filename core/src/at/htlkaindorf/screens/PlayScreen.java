@@ -2,7 +2,10 @@ package at.htlkaindorf.screens;
 
 import at.htlkaindorf.Game;
 import at.htlkaindorf.entities.Player;
+import at.htlkaindorf.entities.collectables.Collectable;
 import at.htlkaindorf.entities.enemies.Enemy;
+import at.htlkaindorf.objects.InteractiveObject;
+import at.htlkaindorf.objects.LevelEnd;
 import at.htlkaindorf.scenes.Hud;
 import at.htlkaindorf.tools.B2WorldCreator;
 import at.htlkaindorf.tools.WorldContactListener;
@@ -22,6 +25,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.logging.Level;
 
 public class PlayScreen implements Screen{
     //Reference to our Game, used to set Screens
@@ -47,7 +52,7 @@ public class PlayScreen implements Screen{
     private Player player;
 
     public PlayScreen(String mapName){
-        atlas = new TextureAtlas("sprites/Sprite_Sheet.pack");
+        atlas = new TextureAtlas("sprites/Sprite_Sheet3.pack");
 
         //create cam used to follow mario through cam world
         gamecam = new OrthographicCamera();
@@ -132,9 +137,22 @@ public class PlayScreen implements Screen{
 
         for(Enemy enemy : creator.getEnemies()) {
             enemy.update(dt);
-            //if (enemy.getX() < player.getX() + 224 / Game.getInstance().getPPM()) {
             enemy.getB2body().setActive(true);
-            //}
+        }
+
+        float playerX = player.getB2body().getPosition().x;
+        float playerY = player.getB2body().getPosition().y;
+        for(Collectable collectable : creator.getCollectables()) {
+            float collectableX = collectable.getB2body().getPosition().x;
+            float collectableY = collectable.getB2body().getPosition().y;
+            if (Math.abs(playerX - collectableX) < 0.1 && Math.abs(playerY - collectableY) < 0.1) {
+                collectable.destroy();
+            }
+            collectable.update(dt);
+        }
+
+        for(InteractiveObject object : creator.getInteractiveObjects()) {
+            object.update(dt);
         }
 
         //attach our gamecam to our players.x coordinate
@@ -165,13 +183,18 @@ public class PlayScreen implements Screen{
         renderer.render();
 
         //renderer our Box2DDebugLines
-        b2dr.render(world, gamecam.combined);
+        //b2dr.render(world, gamecam.combined);
+
         Game.getInstance().getBatch().setProjectionMatrix(gamecam.combined);
 
         Game.getInstance().getBatch().begin();
         player.draw(Game.getInstance().getBatch());
         for (Enemy enemy : creator.getEnemies())
             enemy.draw(Game.getInstance().getBatch());
+        for (Collectable collectable : creator.getCollectables())
+            collectable.draw(Game.getInstance().getBatch());
+        for (InteractiveObject object : creator.getInteractiveObjects())
+            object.draw(Game.getInstance().getBatch());
         Game.getInstance().getBatch().end();
 
         //Set our batch to now draw what the Hud camera sees.
