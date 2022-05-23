@@ -136,9 +136,11 @@ public class PlayScreen implements Screen{
         }
 
         //attach our gamecam to our players.x coordinate
-        if (player.getB2body().getPosition().x > 2) {
+        if (player.getB2body().getPosition().x > 2 && player.getB2body().getPosition().x < 18.5) {
             gamecam.position.x = player.getB2body().getPosition().x;
         }
+
+        System.out.println(player.getB2body().getPosition().x);
 
         gamecam.update();
         renderer.setView(gamecam);
