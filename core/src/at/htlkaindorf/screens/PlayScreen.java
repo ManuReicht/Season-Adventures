@@ -5,9 +5,8 @@ import at.htlkaindorf.entities.Player;
 import at.htlkaindorf.entities.collectables.Collectable;
 import at.htlkaindorf.entities.enemies.Enemy;
 import at.htlkaindorf.objects.InteractiveObject;
-import at.htlkaindorf.objects.LevelEnd;
 import at.htlkaindorf.scenes.Hud;
-import at.htlkaindorf.tools.B2WorldCreator;
+import at.htlkaindorf.tools.WorldCreator;
 import at.htlkaindorf.tools.WorldContactListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -26,63 +25,46 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.util.logging.Level;
-
 public class PlayScreen implements Screen{
     //Reference to our Game, used to set Screens
-    private TextureAtlas atlas;
+    private final TextureAtlas atlas;
 
     //basic playscreen variables
-    private OrthographicCamera gamecam;
-    private Viewport gamePort;
+    private final OrthographicCamera gamecam;
+    private final Viewport gamePort;
 
-    //Tiled map variables
-    private TmxMapLoader maploader;
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
+    private final TiledMap map;
+    private final OrthogonalTiledMapRenderer renderer;
 
     //Box2d variables
-    private World world;
-    private Box2DDebugRenderer b2dr;
-    private B2WorldCreator creator;
+    private final World world;
+    private final Box2DDebugRenderer b2dr;
+    private final WorldCreator creator;
 
-    private Hud hud;
+    private final Hud hud;
 
     //sprites
-    private Player player;
+    private final Player player;
 
     public PlayScreen(String mapName){
+        TmxMapLoader maploader = new TmxMapLoader();
+        map = maploader.load("maps/" + mapName + ".tmx");
+
         atlas = new TextureAtlas("sprites/Sprite_Sheet3.pack");
-
-        //create cam used to follow mario through cam world
         gamecam = new OrthographicCamera();
-
-
-        //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(Game.getInstance().getV_WIDTH() / Game.getInstance().getPPM(),
                                    Game.getInstance().getV_HEIGHT() / Game.getInstance().getPPM(), gamecam);
+        world = new World(new Vector2(0, -10), true);
+        b2dr = new Box2DDebugRenderer();
+        creator = new WorldCreator(this);
+        player = new Player(this);
+        hud = new Hud(Game.getInstance().getBatch());
 
-        //Load our map and setup our map renderer
-        maploader = new TmxMapLoader();
-        map = maploader.load("maps/" + mapName + ".tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1  / Game.getInstance().getPPM());
 
-        //create hud & set Level Name
-        hud = new Hud(Game.getInstance().getBatch());
         hud.setLevelName(mapName);
 
-        //initially set our gamcam to be centered correctly at the start of of map
         gamecam.position.set((gamePort.getWorldWidth() / 2), gamePort.getWorldHeight() / 2, 0);
-
-        //create our Box2D world, setting no gravity in X, -10 gravity in Y, and allow bodies to sleep
-        world = new World(new Vector2(0, -10), true);
-        //allows for debug lines of our box2d world.
-        b2dr = new Box2DDebugRenderer();
-
-        creator = new B2WorldCreator(this);
-
-        //create mario in our game world
-        player = new Player(this);
 
         world.setContactListener(new WorldContactListener());
     }
@@ -99,7 +81,6 @@ public class PlayScreen implements Screen{
 
     public void handleInput(float dt){
         player.printState();
-        //control our player using immediate impulses
         try {
             if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
@@ -108,30 +89,28 @@ public class PlayScreen implements Screen{
                     player.gainHeight();
                 }
             }
-        } catch (IndexOutOfBoundsException iooe) {
-
-        } catch (NullPointerException npe) {
+        } catch (IndexOutOfBoundsException | NullPointerException iooe) {
 
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getB2body().getLinearVelocity().x <= 1.5)
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getB2body().getLinearVelocity().x <= 1.5) {
             player.moveRight();
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.getB2body().getLinearVelocity().x >= -1.5)
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.getB2body().getLinearVelocity().x >= -1.5) {
             player.moveLeft();
+        }
+
         player.updateCurrentState();
     }
 
     public void update(float dt){
-
-        //if player is dead, restart the game
         if(player.getCurrentState() == Player.State.DEAD){
             Game.getInstance().reloadGame();
         }
 
-        //handle user input first
         handleInput(dt);
 
-        //takes 1 step in the physics simulation(60 times per second)
         world.step(1 / 60f, 6, 2);
         player.update(dt);
 
@@ -142,6 +121,7 @@ public class PlayScreen implements Screen{
 
         float playerX = player.getB2body().getPosition().x;
         float playerY = player.getB2body().getPosition().y;
+
         for(Collectable collectable : creator.getCollectables()) {
             float collectableX = collectable.getB2body().getPosition().x;
             float collectableY = collectable.getB2body().getPosition().y;
@@ -160,22 +140,16 @@ public class PlayScreen implements Screen{
             gamecam.position.x = player.getB2body().getPosition().x;
         }
 
-        //update our gamecam with correct coordinates after changes
         gamecam.update();
-        //tell our renderer to draw only what our camera can see in our game world.
         renderer.setView(gamecam);
-
         hud.update(dt);
-
     }
 
 
     @Override
     public void render(float delta) {
-        //separate our update logic from render
         update(delta);
 
-        //Clear the game screen with Black
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -189,22 +163,26 @@ public class PlayScreen implements Screen{
 
         Game.getInstance().getBatch().begin();
         player.draw(Game.getInstance().getBatch());
-        for (Enemy enemy : creator.getEnemies())
-            enemy.draw(Game.getInstance().getBatch());
-        for (Collectable collectable : creator.getCollectables())
-            collectable.draw(Game.getInstance().getBatch());
-        for (InteractiveObject object : creator.getInteractiveObjects())
-            object.draw(Game.getInstance().getBatch());
-        Game.getInstance().getBatch().end();
 
-        //Set our batch to now draw what the Hud camera sees.
+        for (Enemy enemy : creator.getEnemies()) {
+            enemy.draw(Game.getInstance().getBatch());
+        }
+
+        for (Collectable collectable : creator.getCollectables()) {
+            collectable.draw(Game.getInstance().getBatch());
+        }
+
+        for (InteractiveObject object : creator.getInteractiveObjects()) {
+            object.draw(Game.getInstance().getBatch());
+        }
+
+        Game.getInstance().getBatch().end();
         Game.getInstance().getBatch().setProjectionMatrix(hud.getStage().getCamera().combined);
         hud.getStage().draw();
     }
 
     @Override
     public void resize(int width, int height) {
-        //updated our game viewport
         gamePort.update(width,height);
 
     }
@@ -233,7 +211,6 @@ public class PlayScreen implements Screen{
 
     @Override
     public void dispose() {
-        //dispose of all our opened resources
         map.dispose();
         renderer.dispose();
         world.dispose();

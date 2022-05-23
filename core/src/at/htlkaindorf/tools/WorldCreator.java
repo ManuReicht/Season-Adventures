@@ -17,15 +17,15 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
 
-public class B2WorldCreator {
+public class WorldCreator {
     private Array<Walker> walkers;
     private Array<Coin> coins;
     private Array<LevelEnd> levelEnds;
 
-    public B2WorldCreator(PlayScreen screen) {
+    public WorldCreator(PlayScreen screen) {
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
-        //create body and fixture variables
+
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
@@ -46,7 +46,7 @@ public class B2WorldCreator {
             fdef.shape = shape;
             body.createFixture(fdef);
         }
-        System.out.println("test");
+
         //create enemies
         Game.getInstance().setCurrentSeason();
         SeasonFactory seasonFactory = null;
@@ -79,8 +79,6 @@ public class B2WorldCreator {
             coins.add(new Coin(screen, rect.getX() / Game.getInstance().getPPM(),
                     rect.getY() / Game.getInstance().getPPM()));
         }
-
-        System.out.println(coins.size);
 
         //create level end
         levelEnds = new Array<LevelEnd>();

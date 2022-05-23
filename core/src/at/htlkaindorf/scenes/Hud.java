@@ -45,19 +45,13 @@ public class Hud implements Disposable{
 
         Skin skin = new Skin(Gdx.files.internal("skins/pixthulhu/pixthulhu-ui.json"));
 
-        //setup the HUD viewport using a new camera seperate from our gamecam
-        //define our stage using that viewport and our games spritebatch
         viewport = new FitViewport(Game.getInstance().getV_WIDTH(), Game.getInstance().getV_HEIGHT(), new OrthographicCamera());
         stage = new Stage(viewport, sb);
 
-        //define a table used to organize our hud's labels
         Table table = new Table();
-        //Top-Align table
         table.top();
-        //make the table fill the entire stage
         table.setFillParent(true);
 
-        //define our labels using the String, and a Label style consisting of a font and color
         lblCountdown = new Label(String.format("%03d", worldTimer), skin);
         lblCountdown.setFontScale(0.6f);
         lblScore = new Label(String.format("%06d", score), skin);
@@ -71,17 +65,15 @@ public class Hud implements Disposable{
         lblPlayer = new Label("SCORE", skin);
         lblPlayer.setFontScale(0.6f);
 
-        //add our labels to our table, padding the top, and giving them all equal width with expandX
         table.add(lblPlayer).expandX().padTop(10);
         table.add(lblWorld).expandX().padTop(10);
         table.add(lblTime).expandX().padTop(10);
-        //add a second row to our table
+
         table.row();
         table.add(lblScore).expandX();
         table.add(lblLevel).expandX();
         table.add(lblCountdown).expandX();
 
-        //add our table to the stage
         stage.addActor(table);
 
     }
@@ -112,8 +104,6 @@ public class Hud implements Disposable{
 
     @Override
     public void dispose() { stage.dispose(); }
-
-    public boolean isTimeUp() { return timeUp; }
 
     public Stage getStage() {
         return stage;

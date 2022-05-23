@@ -8,15 +8,14 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.utils.Array;
 
 public class LevelEnd extends InteractiveObject {
-    private Array<TextureRegion> frames;
-    private Animation<TextureRegion> animation;
+    private final Animation<TextureRegion> animation;
 
     public LevelEnd(PlayScreen screen, MapObject object, float x, float y){
         super(screen, object ,x, y);
         fixture.setUserData(this);
-        setCategoryFilter(Game.getInstance().getLEVEL_END_BIT());
+        setCategoryFilter(Game.getInstance().LEVEL_END_BIT);
 
-        frames = new Array<TextureRegion>();
+        Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 1; i < 5; i++)
             frames.add(new TextureRegion(screen.getAtlas().findRegion("flag animation"), i * 60, 0, 60, 60));
         animation = new Animation(0.15f, frames);

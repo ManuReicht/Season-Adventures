@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 
@@ -19,7 +18,6 @@ public abstract class InteractiveObject  extends Sprite {
     protected PlayScreen screen;
     protected MapObject object;
     protected float stateTime;
-
     protected Fixture fixture;
 
     public InteractiveObject(PlayScreen screen, MapObject object, float x, float y) {
@@ -63,11 +61,5 @@ public abstract class InteractiveObject  extends Sprite {
         Filter filter = new Filter();
         filter.categoryBits = filterBit;
         fixture.setFilterData(filter);
-    }
-
-    public TiledMapTileLayer.Cell getCell() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
-        return layer.getCell((int) (body.getPosition().x * Game.getInstance().getPPM() / 16),
-                (int) (body.getPosition().y * Game.getInstance().getPPM() / 16));
     }
 }

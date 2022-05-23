@@ -12,7 +12,6 @@ public abstract class Enemy extends Sprite {
     protected PlayScreen screen;
     protected Body b2body;
     protected Vector2 velocity;
-
     protected int reverseTimeout = 0;
 
     public Enemy(PlayScreen screen, float x, float y){
@@ -37,7 +36,6 @@ public abstract class Enemy extends Sprite {
             if(y) {
                 velocity.y = -velocity.y;
             }
-
             reverseTimeout = 30;
         }
     }
