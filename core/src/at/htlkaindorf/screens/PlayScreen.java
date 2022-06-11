@@ -116,7 +116,7 @@ public class PlayScreen implements Screen{
 
         for(Enemy enemy : creator.getEnemies()) {
             enemy.update(dt);
-            enemy.getB2body().setActive(true);
+            enemy.getBody().setActive(true);
         }
 
         float playerX = player.getB2body().getPosition().x;

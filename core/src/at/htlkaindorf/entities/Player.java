@@ -13,8 +13,19 @@ import com.badlogic.gdx.utils.Array;
 
 import java.text.DecimalFormat;
 
+/**
+ * The player class is used to create the player.
+ * It extends the sprite class.
+ * @author Trummer Nik
+ * */
 public class Player extends Sprite {
+    /**
+     * Defines the max. jump height of the player.
+     * */
     public static final int MAX_JUMP_HEIGHT = 35;
+    /**
+     * Defines the max. jump height of the player.
+     * */
     public enum State { FALLING, JUMPING, STANDING, RUNNING, DEAD};
 	
     private State currentState;

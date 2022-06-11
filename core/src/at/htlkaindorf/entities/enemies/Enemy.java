@@ -7,20 +7,49 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
+/**
+ * The Enemy class is the parent class of all enemies.
+ * It extends the sprite class.
+ * @author Trummer Nik
+ * */
 public abstract class Enemy extends Sprite {
+    /**
+     * World in which the collectable should appear.
+     * */
     protected World world;
+    /**
+     * Playscreen on which the collectable should appear.
+     * */
     protected PlayScreen screen;
-    protected Body b2body;
+    /**
+     * The body of the collectable with position, texture, ... .
+     * */
+    protected Body body;
+    /**
+     * A vector which defines the movement speed of the enemy.
+     * */
     protected Vector2 velocity;
+    /**
+     * Makes sure that the enemy does not get stuck in
+     * reversing his movement.
+     * */
     protected int reverseTimeout = 0;
 
+    /**
+     * Sets the position and the bounds of the enemie and calls
+     * the define enemie method.
+     * @param screen playscreen on which the enemie should appear
+     * @param x x position of the enemie
+     * @param y y position of the enemie
+     * @since 1.0
+     *  */
     public Enemy(PlayScreen screen, float x, float y){
         this.world = screen.getWorld();
         this.screen = screen;
         setPosition(x, y);
         defineEnemy();
         velocity = new Vector2(-1, -2);
-        b2body.setActive(false);
+        body.setActive(false);
     }
 
     protected abstract void defineEnemy();
@@ -28,6 +57,13 @@ public abstract class Enemy extends Sprite {
     public abstract void hitOnHead(Player player);
     public abstract void hitByEnemy(Enemy enemy);
 
+    /**
+     * Sets the position and the bounds of the enemie and calls
+     * the define enemie method.
+     * @param x if true, the movement in the x direction is reversed
+     * @param y if true, the movement in the y direction is reversed
+     * @since 1.0
+     *  */
     public void reverseVelocity(boolean x, boolean y){
         if (reverseTimeout == 0) {
             if(x) {
@@ -48,8 +84,8 @@ public abstract class Enemy extends Sprite {
         return screen;
     }
 
-    public Body getB2body() {
-        return b2body;
+    public Body getBody() {
+        return body;
     }
 
     public Vector2 getVelocity() {
