@@ -30,12 +30,6 @@ public class Coin extends Collectable{
     public Coin(PlayScreen screen, float x, float y, Animation animation) {
         super(screen, x, y);
         this.animation = animation;
-        Array<TextureRegion> frames = new Array<TextureRegion>();
-        for(int i = 1; i < 4; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("coin"), i * 13, 0, 13, 13));
-        }
-
-        animation = new Animation(0.15f, frames);
     }
 
     /**

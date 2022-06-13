@@ -50,7 +50,7 @@ public class PlayScreen implements Screen{
         TmxMapLoader maploader = new TmxMapLoader();
         map = maploader.load("maps/" + mapName + ".tmx");
 
-        atlas = new TextureAtlas("sprites/Sprite_Sheet4.pack");
+        atlas = new TextureAtlas("sprites/Sprite_Sheet5.pack");
         gamecam = new OrthographicCamera();
         gamePort = new FitViewport(Game.getInstance().getV_WIDTH() / Game.getInstance().getPPM(),
                                    Game.getInstance().getV_HEIGHT() / Game.getInstance().getPPM(), gamecam);
