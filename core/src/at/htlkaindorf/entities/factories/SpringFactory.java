@@ -1,6 +1,8 @@
 package at.htlkaindorf.entities.factories;
 
 import at.htlkaindorf.Game;
+import at.htlkaindorf.entities.collectables.Coin;
+import at.htlkaindorf.entities.collectables.Collectable;
 import at.htlkaindorf.entities.enemies.Enemy;
 import at.htlkaindorf.entities.enemies.Walker;
 import at.htlkaindorf.screens.PlayScreen;
@@ -23,5 +25,17 @@ public class SpringFactory implements SeasonFactory {
         Animation<TextureRegion> die = new Animation(0.07f, frames);
 
         return new Walker(screen, x, y, walk, die);
+    }
+
+    @Override
+    public Collectable createCoin(PlayScreen screen, float x, float y) {
+        Animation<TextureRegion> animation;
+        Array<TextureRegion> frames = new Array<TextureRegion>();
+        for(int i = 1; i < 4; i++) {
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("coin"), i * 13, 0, 13, 13));
+        }
+
+        animation = new Animation(0.15f, frames);
+        return new Coin(screen, x,y, animation);
     }
 }

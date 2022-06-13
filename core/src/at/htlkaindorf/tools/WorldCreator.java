@@ -53,7 +53,7 @@ public class WorldCreator {
         switch (Game.getInstance().getCurrentSeason()) {
             case SPRING:
                 //seasonFactory = new SpringFactory();
-                seasonFactory = new SummerFactory();
+                seasonFactory = new SpringFactory();
                 break;
             case SUMMER:
                 seasonFactory = new SummerFactory();
@@ -77,7 +77,7 @@ public class WorldCreator {
         coins = new Array<Coin>();
         for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            coins.add(new Coin(screen, rect.getX() / Game.getInstance().getPPM(),
+            coins.add((Coin) seasonFactory.createCoin(screen, rect.getX() / Game.getInstance().getPPM(),
                     rect.getY() / Game.getInstance().getPPM()));
         }
 

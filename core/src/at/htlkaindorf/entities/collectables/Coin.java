@@ -27,9 +27,9 @@ public class Coin extends Collectable{
      * @param y y position of the coin
      * @since 1.0
      *  */
-    public Coin(PlayScreen screen, float x, float y) {
+    public Coin(PlayScreen screen, float x, float y, Animation animation) {
         super(screen, x, y);
-
+        this.animation = animation;
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 1; i < 4; i++) {
             frames.add(new TextureRegion(screen.getAtlas().findRegion("coin"), i * 13, 0, 13, 13));
