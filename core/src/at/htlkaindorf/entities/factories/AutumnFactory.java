@@ -14,12 +14,12 @@ public class AutumnFactory implements SeasonFactory {
         Array<TextureRegion> frames;
         frames = new Array<TextureRegion>();
         for (int i = 1; i < 16; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("angry_pig_walk"), i * 36, 0, 36, 30));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("angry pig walk"), i * 36, 0, 36, 30));
         Animation<TextureRegion> walk = new Animation(0.07f, frames);
 
         frames.clear();
         for (int i = 1; i < 5; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("angry_pig_hit_one"), i * 36, 0, 36, 30));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("angry pig hit"), i * 36, 0, 36, 30));
         Animation<TextureRegion> die = new Animation(0.07f, frames);
 
         return new Walker(screen, x, y, walk, die);

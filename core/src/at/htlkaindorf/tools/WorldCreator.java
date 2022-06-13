@@ -52,7 +52,8 @@ public class WorldCreator {
         SeasonFactory seasonFactory = null;
         switch (Game.getInstance().getCurrentSeason()) {
             case SPRING:
-                seasonFactory = new SpringFactory();
+                //seasonFactory = new SpringFactory();
+                seasonFactory = new SummerFactory();
                 break;
             case SUMMER:
                 seasonFactory = new SummerFactory();

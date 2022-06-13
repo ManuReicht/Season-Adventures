@@ -57,17 +57,17 @@ public class Player extends Sprite {
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 1; i < 12; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("player_run"), i * 32, 0, 32, 32));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("player run"), i * 32, 0, 32, 32));
         }
         run = new Animation(0.07f, frames);
 
         frames.clear();
         for(int i = 1; i < 11; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("player_idle"), i * 32, 0, 32, 32));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("player idle"), i * 32, 0, 32, 32));
         }
         idle = new Animation(0.07f, frames);
 
-        jump = new TextureRegion(screen.getAtlas().findRegion("player_jump"), 0, 0, 32, 32);
+        jump = new TextureRegion(screen.getAtlas().findRegion("player jump"), 0, 0, 32, 32);
 
         definePlayer();
 
