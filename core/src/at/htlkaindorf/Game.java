@@ -29,8 +29,8 @@ public class Game extends com.badlogic.gdx.Game {
 
     private PlayScreen currentPlayScreen = null;
 
-    private int totalNumberOfLevelsInWorld = 2;
-    private int totalNumberOfWorlds = 2;
+    private int totalNumberOfLevelsInWorld = 1;
+    private int totalNumberOfWorlds = 3;
 
     private Game() {
     }

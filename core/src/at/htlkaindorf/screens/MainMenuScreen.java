@@ -43,8 +43,8 @@ public class MainMenuScreen implements Screen {
         table.row().pad(10, 0, 0, 0);
         table.add(newGame).fillX().uniformX();
         table.row().pad(10, 0, 0, 0);
-        table.add(loadGame).fillX().uniformX();
-        table.row().pad(10, 0, 0, 0);
+        //table.add(loadGame).fillX().uniformX();
+        //table.row().pad(10, 0, 0, 0);
         table.add(exit).fillX().uniformX();
 
         //stage.getViewport().update(width, height, true);
@@ -63,12 +63,12 @@ public class MainMenuScreen implements Screen {
             }
         });
 
-        loadGame.addListener(new ChangeListener() {
+        /*loadGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println("load game button");
             }
-        });
+        });*/
 
     }
 
