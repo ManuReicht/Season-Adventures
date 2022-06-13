@@ -6,7 +6,6 @@ import at.htlkaindorf.screens.PlayScreen;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.utils.Array;
 
 /**
  * The coin class is used to create collectable coins for the player.

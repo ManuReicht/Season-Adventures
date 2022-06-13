@@ -15,13 +15,13 @@ public class SpringFactory implements SeasonFactory {
     public Enemy createWalker(PlayScreen screen, float x, float y) {
         Array<TextureRegion> frames;
         frames = new Array<TextureRegion>();
-        for (int i = 1; i < 16; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("angry pig walk"), i * 36, 0, 36, 34));
+        for (int i = 1; i < 14; i++)
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("trunk run"), i * 64, 0, 64, 32));
         Animation<TextureRegion> walk = new Animation(0.07f, frames);
 
         frames.clear();
         for (int i = 1; i < 5; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("angry pig hit"), i * 36, 0, 36, 30));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("trunk hit"), i * 64, 0, 64, 32));
         Animation<TextureRegion> die = new Animation(0.07f, frames);
 
         return new Walker(screen, x, y, walk, die);

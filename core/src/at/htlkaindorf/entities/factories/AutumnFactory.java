@@ -15,13 +15,13 @@ public class AutumnFactory implements SeasonFactory {
     public Enemy createWalker(PlayScreen screen, float x, float y) {
         Array<TextureRegion> frames;
         frames = new Array<TextureRegion>();
-        for (int i = 1; i < 16; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("angry pig walk"), i * 36, 0, 36, 30));
+        for (int i = 1; i < 8; i++)
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("chameleon run"), i * 40, 0, 40, 38));
         Animation<TextureRegion> walk = new Animation(0.07f, frames);
 
         frames.clear();
         for (int i = 1; i < 5; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("angry pig hit"), i * 36, 0, 36, 30));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("chameleon hit"), i * 168, 0, 84, 38));
         Animation<TextureRegion> die = new Animation(0.07f, frames);
 
         return new Walker(screen, x, y, walk, die);
@@ -32,7 +32,7 @@ public class AutumnFactory implements SeasonFactory {
         Animation<TextureRegion> animation;
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 1; i < 4; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("coin"), i * 13, 0, 13, 13));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("autumn coin"), i * 13, 0, 13, 13));
         }
 
         animation = new Animation(0.15f, frames);

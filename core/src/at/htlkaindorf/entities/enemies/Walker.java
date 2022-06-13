@@ -68,7 +68,7 @@ public class Walker extends Enemy {
         super(screen, x, y);
 
         this.walk = walk;
-        this.die = die;
+        this.die = walk;
 
         stateTime = 0;
         setBounds(getX(), getY(), 16 / Game.getInstance().getPPM(), 16 / Game.getInstance().getPPM());
