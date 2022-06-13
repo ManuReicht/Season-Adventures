@@ -21,7 +21,7 @@ import java.text.DecimalFormat;
  * */
 public class Walker extends Enemy {
     /**
-     * Used to set the right frame for the animaition.
+     * Used to set the right frame for the animation.
      * */
     private float stateTime;
     /**

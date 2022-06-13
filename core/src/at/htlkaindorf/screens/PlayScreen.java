@@ -93,11 +93,11 @@ public class PlayScreen implements Screen{
 
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getB2body().getLinearVelocity().x <= 1.5) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getBody().getLinearVelocity().x <= 1.5) {
             player.moveRight();
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.getB2body().getLinearVelocity().x >= -1.5) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.getBody().getLinearVelocity().x >= -1.5) {
             player.moveLeft();
         }
 
@@ -119,8 +119,8 @@ public class PlayScreen implements Screen{
             enemy.getBody().setActive(true);
         }
 
-        float playerX = player.getB2body().getPosition().x;
-        float playerY = player.getB2body().getPosition().y;
+        float playerX = player.getBody().getPosition().x;
+        float playerY = player.getBody().getPosition().y;
 
         for(Collectable collectable : creator.getCollectables()) {
             float collectableX = collectable.getB2body().getPosition().x;
@@ -136,11 +136,11 @@ public class PlayScreen implements Screen{
         }
 
         //attach our gamecam to our players.x coordinate
-        if (player.getB2body().getPosition().x > 2 && player.getB2body().getPosition().x < 18.5) {
-            gamecam.position.x = player.getB2body().getPosition().x;
+        if (player.getBody().getPosition().x > 2 && player.getBody().getPosition().x < 18.5) {
+            gamecam.position.x = player.getBody().getPosition().x;
         }
 
-        System.out.println(player.getB2body().getPosition().x);
+        System.out.println(player.getBody().getPosition().x);
 
         gamecam.update();
         renderer.setView(gamecam);
