@@ -2,12 +2,7 @@ package at.htlkaindorf.scenes;
 
 import at.htlkaindorf.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -17,28 +12,71 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+/**
+ * The hud of the game. It shows values like score, time, world, ... on the playscreen.
+ * It implements the Diasposable class.
+ * @author Reicht Manuel
+ * */
 public class Hud implements Disposable{
 
-    //Scene2D.ui Stage and its own Viewport for HUD
+    /**
+     * The stage on which the hud should appear. It is needed to show the hud on top of
+     * the playscreen.
+     */
     private Stage stage;
+    /**
+     * The viewport of the stage of the hud.
+     */
     private Viewport viewport;
 
-    //Mario score/time Tracking Variables
+    /**
+     * The amount of time in seconds the user have to finish a level.
+     */
     private Integer worldTimer;
-    private boolean timeUp; // true when the world timer reaches 0
+    /**
+     * Turns true if the timeCount reaches zero.
+     */
+    private boolean timeUp;
+    /**
+     * The timer for a level. It starts at the value of worldTimer and if it reaches zero
+     * timeUp turns true.
+     */
     private float timeCount;
+    /**
+     * The score of the player. It raises if the player collects something, kills an enemy, ... .
+     */
     private static Integer score;
 
-    //Scene2D widgets
+    /**
+     * The label of the countdown which contains the value of timeCount.
+     */
     private Label lblCountdown;
+    /**
+     * The label of the score which contains the value of score.
+     */
     private static Label lblScore;
+    /**
+     * This label is the heading of lblCountdown.
+     */
     private Label lblTime;
+    /**
+     * This label shows the current world and level.
+     */
     private Label lblLevel;
+    /**
+     * This label is the heading of lblLevel.
+     */
     private Label lblWorld;
-    private Label lblPlayer;
+    /**
+     * This label is the heading of lblScore.
+     */
+    private Label lblScoreHeading;
 
+    /**
+     * Sets the skin of the hud and adds all Labels to the hud.
+     * @author Trummer Nik
+     * */
     public Hud(SpriteBatch sb){
-        //define our tracking variables
         worldTimer = 500;
         timeCount = 0;
         score = 0;
@@ -62,10 +100,10 @@ public class Hud implements Disposable{
         lblLevel.setFontScale(0.6f);
         lblWorld = new Label("WORLD", skin);
         lblWorld.setFontScale(0.6f);
-        lblPlayer = new Label("SCORE", skin);
-        lblPlayer.setFontScale(0.6f);
+        lblScoreHeading = new Label("SCORE", skin);
+        lblScoreHeading.setFontScale(0.6f);
 
-        table.add(lblPlayer).expandX().padTop(10);
+        table.add(lblScoreHeading).expandX().padTop(10);
         table.add(lblWorld).expandX().padTop(10);
         table.add(lblTime).expandX().padTop(10);
 
@@ -78,6 +116,12 @@ public class Hud implements Disposable{
 
     }
 
+    /**
+     * Updates the world counter and sets timeUp true if the worldTimer reaches zero.
+     * It also reloads the level if the timeUp is true.
+     * @param dt delta time
+     * @since 1.0
+     *  */
     public void update(float dt){
         timeCount += dt;
         if(timeCount >= 1){
@@ -97,6 +141,11 @@ public class Hud implements Disposable{
         }
     }
 
+    /**
+     * Adds a value to the score and updates lblScore.
+     * @param value the value which is added to the score
+     * @since 1.0
+     *  */
     public void addScore(int value){
         score += value;
         lblScore.setText(String.format("%06d", score));

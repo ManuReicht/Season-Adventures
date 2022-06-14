@@ -6,25 +6,45 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 
+/**
+ * The InteravtiveObject class is the parent class of all object the player can interact with.
+ * It extends the sprite class.
+ * @author Trummer Nik
+ * */
 public abstract class InteractiveObject  extends Sprite {
+    /**
+     * World in which the object should appear.
+     * */
     protected World world;
-    protected TiledMap map;
+    /**
+     * The hit box of the object. Other object can collide with it.
+     * */
     protected Rectangle bounds;
+    /**
+     * The body of the object with position, texture, ... .
+     * */
     protected Body body;
-    protected PlayScreen screen;
-    protected MapObject object;
+    /**
+     * Used to set the right frame for the animaition.
+     * */
     protected float stateTime;
+    /**
+     * Stores the filter bit of the object.
+     * */
     protected Fixture fixture;
 
+    /**
+     * Sets the position and the bounds of the object.
+     * @param screen playscreen on which the object should appear
+     * @param x x position of the object
+     * @param y y position of the object
+     * @since 1.0
+     *  */
     public InteractiveObject(PlayScreen screen, MapObject object, float x, float y) {
-        this.object = object;
-        this.screen = screen;
         this.world = screen.getWorld();
-        this.map = screen.getMap();
         this.bounds = ((RectangleMapObject) object).getRectangle();
 
         BodyDef bdef = new BodyDef();
@@ -49,14 +69,29 @@ public abstract class InteractiveObject  extends Sprite {
 
     }
 
+    /**
+     * Updates the stateTime every frame.
+     * @param dt delta time
+     * @since 1.0
+     *  */
     public void update(float dt){
         stateTime += dt;
     }
 
+    /**
+     * Draws the sprite of the object.
+     * @param batch the sprite batch with the sprites
+     * @since 1.0
+     * */
     public void draw(Batch batch){
         super.draw(batch);
     }
 
+    /**
+     * Sets the category filter of the object. It is used to detect collision with the object.
+     * @param filterBit the filterBit for the object
+     * @since 1.0
+     * */
     public void setCategoryFilter(short filterBit) {
         Filter filter = new Filter();
         filter.categoryBits = filterBit;

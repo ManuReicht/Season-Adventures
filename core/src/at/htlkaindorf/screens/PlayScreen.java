@@ -25,27 +25,67 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+/**
+ * The play screen which the user can see. All objects (player, enemies, coins, ...) are placed
+ * on the play screen. It also handles all inputs.
+ * It only exists once.
+ * @author Trummer Nik
+ * */
 public class PlayScreen implements Screen{
-    //Reference to our Game, used to set Screens
+    /**
+     * The texture atlas of the game. It contains all sprites of all objects, enemies and the player.
+     * It only exists once.
+     */
     private final TextureAtlas atlas;
 
-    //basic playscreen variables
+    /**
+     * The camera of the playscreen. It follows the player.
+     */
     private final OrthographicCamera gamecam;
+    /**
+     * The viewport of the playscreen.
+     */
     private final Viewport gamePort;
 
+    /**
+     * The current level which is displayed on the playscreen.
+     */
     private final TiledMap map;
+    /**
+     * The map renderer of the playscreen. It renders all sprites of the level.
+     */
     private final OrthogonalTiledMapRenderer renderer;
 
-    //Box2d variables
+    /**
+     * The world of the playscreen. All collisions, physics and hitboxes are in the world
+     * while the graphics are in the playscreen.
+     * */
     private final World world;
+    /**
+     * Only for debugging!
+     * It allows to render debug lines.
+     * */
     private final Box2DDebugRenderer b2dr;
+    /**
+     * The creator of the world. It creates all objects which should appear in the world.
+     * */
     private final WorldCreator creator;
 
+    /**
+     * The hud of the playscreen. It shows values like score, time, world, ... on the playscreen.
+     * */
     private final Hud hud;
 
-    //sprites
+    /**
+     * A player instance which will be created on the playscreen.
+     * */
     private final Player player;
 
+    /**
+     * Loads the map and the sprite sheet into the game.
+     * @param mapName the name of the map which should be loaded in the playscreen
+     * @since 1.0
+     *  */
     public PlayScreen(String mapName){
         TmxMapLoader maploader = new TmxMapLoader();
         map = maploader.load("maps/" + mapName + ".tmx");
@@ -75,10 +115,14 @@ public class PlayScreen implements Screen{
 
     @Override
     public void show() {
-        Skin skin = new Skin(Gdx.files.internal("skins/pixthulhu/pixthulhu-ui.json"));
-        Label timer = new Label("Timer",skin);
+
     }
 
+    /**
+     * Handles all the inputs of the user and calls the corresponding function to controll the player.
+     * @param dt delta time
+     * @since 1.0
+     *  */
     public void handleInput(float dt){
         player.printState();
         try {
@@ -104,6 +148,11 @@ public class PlayScreen implements Screen{
         player.updateCurrentState();
     }
 
+    /**
+     * Checks which actions are occure on the playscreen and calls corresponding functions.
+     * @param dt delta time
+     * @since 1.0
+     *  */
     public void update(float dt){
         if(player.getCurrentState() == Player.State.DEAD){
             Game.getInstance().reloadGame();
@@ -148,9 +197,14 @@ public class PlayScreen implements Screen{
     }
 
 
+    /**
+     * Renders the sprites of all objects, enemies and the player.
+     * @param dt delta time
+     * @since 1.0
+     *  */
     @Override
-    public void render(float delta) {
-        update(delta);
+    public void render(float dt) {
+        update(dt);
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -186,7 +240,6 @@ public class PlayScreen implements Screen{
     @Override
     public void resize(int width, int height) {
         gamePort.update(width,height);
-
     }
 
     public TiledMap getMap(){

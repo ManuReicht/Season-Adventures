@@ -6,20 +6,44 @@ import at.htlkaindorf.entities.collectables.Collectable;
 import at.htlkaindorf.entities.enemies.Enemy;
 import com.badlogic.gdx.physics.box2d.*;
 
+/**
+ * The WorldContactListener is used to create a contact listener for the game.
+ * It is responsible for all collision detections.
+ * @author Trummer Nik
+ * */
 public class WorldContactListener implements ContactListener {
 
-    private final static short NOTHING_BIT = Game.getInstance().NOTHING_BIT;
-    private final static short TERRAIN_BIT = Game.getInstance().TERRAIN_BIT;
+    /**
+     * Stores the bit (a power of two) of the player. It is used to determine if the player is part of a collision.
+     * */
     private final static short PLAYER_BIT = Game.getInstance().PLAYER_BIT;
+    /**
+     * Stores the bit (a power of two) of an enemy. It is used to determine if an enemy is part of a collision.
+     * */
     private final static short ENEMY_BIT = Game.getInstance().ENEMY_BIT;
+    /**
+     * Stores the bit (a power of two) of an enemy head. It is used to determine if a player jumps on an enemy.
+     * */
     private final static short ENEMY_HEAD_BIT = Game.getInstance().ENEMY_HEAD_BIT;
-    private final static short PLAYER_HEAD_BIT = Game.getInstance().PLAYER_HEAD_BIT;
+    /**
+     * Stores the bit (a power of two) of the level end. It is used to determine if the player reaches the end of the level.
+     * */
     private final static short LEVEL_END_BIT = Game.getInstance().LEVEL_END_BIT;
-    private final static short COLLECTABLE_BIT = Game.getInstance().COLLECTABLE_BIT;
 
+    /**
+     * One of the two fixtures (hitboxes) which are part of a collision.
+     * */
     private Fixture fixA;
+    /**
+     * One of the two fixtures (hitboxes) which are part of a collision.
+     * */
     private Fixture fixB;
 
+    /**
+     * Called if two fixtures collide with each other.
+     * It calls a function based on the two fixtures.
+     * @param contact stores the two fixtures with are involved in the collsion
+     * */
     @Override
     public void beginContact(Contact contact) {
         fixA = contact.getFixtureA();
@@ -37,13 +61,12 @@ public class WorldContactListener implements ContactListener {
             hitByOtherEnemy();
         } else if (cDef == (PLAYER_BIT | LEVEL_END_BIT)) {
             Game.getInstance().loadNextMap();
-        } else if (cDef == (COLLECTABLE_BIT | PLAYER_BIT)) { // An item collides with the player
-            collectItem();
-            Game.getInstance().getCurrentPlayScreen().getHud().addScore(100);
-            System.out.println("Collected");
         }
     }
 
+    /**
+     * Called if the player jumps on an enemy and calles the hitOnHead function of the enemy.
+     * */
     private void jumpOnEnemy() {
         if (fixA.getFilterData().categoryBits == Game.getInstance().ENEMY_HEAD_BIT)
             ((Enemy) fixA.getUserData()).hitOnHead((Player) fixB.getUserData());
@@ -51,20 +74,9 @@ public class WorldContactListener implements ContactListener {
             ((Enemy) fixB.getUserData()).hitOnHead((Player) fixA.getUserData());
     }
 
-    private void reverseEnemyVelocity(boolean x, boolean y) {
-        if (fixA.getFilterData().categoryBits == Game.getInstance().ENEMY_BIT)
-            ((Enemy) fixA.getUserData()).reverseVelocity(x, y);
-        else
-            ((Enemy) fixB.getUserData()).reverseVelocity(x, y);
-    }
-
-    private void collectItem() {
-        if (fixA.getFilterData().categoryBits == Game.getInstance().COLLECTABLE_BIT)
-            ((Collectable) fixA.getUserData()).collect((Player) fixB.getUserData());
-        else
-            ((Collectable) fixB.getUserData()).collect((Player) fixA.getUserData());
-    }
-
+    /**
+     * Called if the player gets hit by an enemy and calles the hit function of the player.
+     * */
     private void takeDamage() {
         if (fixA.getFilterData().categoryBits == Game.getInstance().PLAYER_BIT)
             ((Player) fixA.getUserData()).hit((Enemy) fixB.getUserData());
@@ -72,6 +84,9 @@ public class WorldContactListener implements ContactListener {
             ((Player) fixB.getUserData()).hit((Enemy) fixA.getUserData());
     }
 
+    /**
+     * Called if an enemy hits another one and calles the hitByEnemy funtion of both enemies.
+     * */
     private void hitByOtherEnemy() {
         ((Enemy) fixA.getUserData()).hitByEnemy((Enemy) fixB.getUserData());
         ((Enemy) fixB.getUserData()).hitByEnemy((Enemy) fixA.getUserData());

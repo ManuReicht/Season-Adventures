@@ -14,7 +14,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+/**
+ * Used to create the main menu screen of the game.
+ * It implements the Screen class.
+ * @author Reicht Manuel
+ * */
 public class MainMenuScreen implements Screen {
+    /**
+     * The stage on which the menu screen should appear. It is needed to show the screen on top of
+     * the playscreen.
+     */
     private final Stage stage;
 
     public MainMenuScreen() {
@@ -22,6 +31,11 @@ public class MainMenuScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Sets the skin of the menu screen.
+     * It also adds the buttons and their action listeners to the screen.
+     * @author Reicht Manuel
+     * */
     @Override
     public void show() {
         Table table = new Table();
@@ -62,18 +76,15 @@ public class MainMenuScreen implements Screen {
                 Game.getInstance().loadMap("1-1");
             }
         });
-
-        /*loadGame.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("load game button");
-            }
-        });*/
-
     }
 
+    /**
+     * Renders the menu screen.
+     * @param dt delta time
+     * @since 1.0
+     *  */
     @Override
-    public void render(float delta) {
+    public void render(float dt) {
 
         // clear the screen ready for next set of images to be drawn
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);

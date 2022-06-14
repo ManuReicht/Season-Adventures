@@ -16,39 +16,40 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
-
+/**
+ * Used to create all hitboxes and objects (Enemies, Collectables, LevelEnds) in a level.
+ * @author Trummer Nik
+ * */
 public class WorldCreator {
     private Array<Walker> walkers;
     private Array<Coin> coins;
     private Array<LevelEnd> levelEnds;
+    private PlayScreen screen;
 
+
+    /**
+     * Gets the current season and creates
+     * the terrain, all enemies, collectables and levelEnds.
+     * @author Trummer Nik
+     * */
     public WorldCreator(PlayScreen screen) {
+        this.screen = screen;
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
-
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
-
-        //create terrain
-        for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / Game.getInstance().getPPM(),
-                    (rect.getY() + rect.getHeight() / 2) / Game.getInstance().getPPM());
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 / Game.getInstance().getPPM(),
-                    rect.getHeight() / 2 / Game.getInstance().getPPM());
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
-        //create enemies
         Game.getInstance().setCurrentSeason();
+        SeasonFactory seasonFactory = getFactory();
+
+        createTerrain(world, map);
+        createEnemies(seasonFactory, map);
+        createCollectables(seasonFactory, map);
+        createLevelEnds(seasonFactory, map);
+    }
+    /**
+     * Gets the current season from the game and sets the right factory for it.
+     * @return the right factory for the season of the current level
+     * @since 1.0
+     *  */
+    private SeasonFactory getFactory() {
         SeasonFactory seasonFactory = null;
         switch (Game.getInstance().getCurrentSeason()) {
             case SPRING:
@@ -65,31 +66,66 @@ public class WorldCreator {
                 break;
         }
 
+        return seasonFactory;
+    }
+
+    /**
+     * Calls the update method of the parrent class and
+     * sets the right animation frame.
+     * @param
+     * @since 1.0
+     *  */
+    public void createTerrain(World world, TiledMap map) {
+        BodyDef bdef = new BodyDef();
+        PolygonShape shape = new PolygonShape();
+        FixtureDef fdef = new FixtureDef();
+        Body body;
+
+        for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / Game.getInstance().getPPM(),
+                    (rect.getY() + rect.getHeight() / 2) / Game.getInstance().getPPM());
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(rect.getWidth() / 2 / Game.getInstance().getPPM(),
+                    rect.getHeight() / 2 / Game.getInstance().getPPM());
+            fdef.shape = shape;
+            body.createFixture(fdef);
+        }
+    }
+
+    private void createEnemies(SeasonFactory seasonFactory, TiledMap map) {
         walkers = new Array<Walker>();
+
         for (MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             walkers.add((Walker) seasonFactory.createWalker(screen, rect.getX() / Game.getInstance().getPPM(),
                     rect.getY() / Game.getInstance().getPPM()));
         }
+    }
 
-        //create coins
+    private void createCollectables(SeasonFactory seasonFactory, TiledMap map) {
         coins = new Array<Coin>();
+
         for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             coins.add((Coin) seasonFactory.createCoin(screen, rect.getX() / Game.getInstance().getPPM(),
                     rect.getY() / Game.getInstance().getPPM()));
         }
+    }
 
-        //create level end
+    private void createLevelEnds(SeasonFactory seasonFactory, TiledMap map) {
         levelEnds = new Array<LevelEnd>();
+
         for (MapObject object : map.getLayers().get(12).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             levelEnds.add(new LevelEnd(screen, object, rect.getX() / Game.getInstance().getPPM(),
                     rect.getY() / Game.getInstance().getPPM()));
-            System.out.println("LEVEL END");
         }
     }
-
 
     public Array<Enemy> getEnemies() {
         Array<Enemy> enemies = new Array<Enemy>();

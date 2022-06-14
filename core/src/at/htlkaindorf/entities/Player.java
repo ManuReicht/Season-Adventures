@@ -127,6 +127,12 @@ public class Player extends Sprite {
         newPosition =  oldPosition + 100;
     }
 
+    /**
+     * Sets the right sprite every frame and checks if the player is onCeiling and if
+     * true, the player stops gaining height.
+     * @param dt delta time
+     * @since 1.0
+     *  */
     public void update(float dt){
         setRegion(getFrame(dt));
         setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
@@ -144,6 +150,12 @@ public class Player extends Sprite {
         }
     }
 
+    /**
+     * Determines the right sprite based on the state of the player and flips it if nescessary.
+     * @param dt delta time
+     * @return the right TextureRegion for the animation
+     * @since 1.0
+     *  */
     public TextureRegion getFrame(float dt){
         TextureRegion region;
 
@@ -170,6 +182,11 @@ public class Player extends Sprite {
 
     }
 
+    /**
+     * Determines if the frame should be fliped and flipes it if nescessary.
+     * @param region the texture which should be fliped
+     * @since 1.0
+     *  */
     public void flipSprite(TextureRegion region) {
         if((body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()){
             region.flip(true, false);
@@ -180,6 +197,11 @@ public class Player extends Sprite {
         }
     }
 
+    /**
+     * Determines if the player is allowed to jump based on the states and if true, an impulse will be
+     * applied on the player.
+     * @since 1.0
+     *  */
     public void jump(){
         // no double jumps, only allow jumping if player is standing or running
         if(currentState == State.STANDING || currentState == State.RUNNING){
@@ -188,6 +210,11 @@ public class Player extends Sprite {
         }
     }
 
+    /**
+     * Applies a linear impulse to the player if the user holds the jump button and the max. jump height
+     * is not reached.
+     * @since 1.0
+     *  */
     public void gainHeight() {
         if ((body.getPosition().y) < (MAX_JUMP_HEIGHT / Game.getInstance().getPPM() + yBeforeJump) && gainHeight) {
             body.applyLinearImpulse(new Vector2(0, 0.3f), body.getWorldCenter(), true);
@@ -198,18 +225,36 @@ public class Player extends Sprite {
         }
     }
 
+    /**
+     * Applies a linear impulse to the player to move it in the x direction.
+     * @since 1.0
+     *  */
     public void moveRight(){
         body.applyLinearImpulse(new Vector2(0.1f, 0), body.getWorldCenter(), true);
     }
 
+    /**
+     * Applies a linear impulse to the player to move it in the negative x direction.
+     * @since 1.0
+     *  */
     public void moveLeft(){
         body.applyLinearImpulse(new Vector2(-0.1f, 0), body.getWorldCenter(), true);
     }
 
+    /**
+     * Applies a linear impulse to the player to move it in the negative x direction.
+     * @param enemy the enemy which hit the player
+     * @since 1.0
+     *  */
     public void hit(Enemy enemy){
         currentState = State.DEAD;
     }
 
+    /**
+     * Defines the Player:
+     * Sets position for the frames and the type of the body
+     * @since 1.0
+     * */
     public void definePlayer(){
         BodyDef bdef = new BodyDef();
         bdef.position.set(50 / Game.getInstance().getPPM(), 32 / Game.getInstance().getPPM());
@@ -231,6 +276,11 @@ public class Player extends Sprite {
         body.createFixture(fdef).setUserData(this);
     }
 
+    /**
+     * Checks if the player is on ceiling.
+     * @return true if the player  is on ceiling
+     * @since 1.0
+     * */
     public boolean onCeiling() {
         if (oldPosition == newPosition && gainHeight && yBeforeJump < body.getPosition().y
                 && body.getLinearVelocity().y == 0 && previousState.equals(State.JUMPING)
@@ -241,10 +291,20 @@ public class Player extends Sprite {
         return false;
     }
 
+    /**
+     * Draws the sprite of the player.
+     * @param batch the sprite batch with the sprites
+     * @since 1.0
+     * */
     public void draw(Batch batch){
         super.draw(batch);
     }
 
+    /**
+     * Determines the current state of the player based on his movement.
+     * @return the current state of the player
+     * @since 1.0
+     * */
     public State getState(){
 
         if(body.getPosition().y < 0) {
@@ -272,6 +332,10 @@ public class Player extends Sprite {
         //System.out.println(b2body.getPosition().y);
     }
 
+    /**
+     * Updates the current state and set the previous state.
+     * @since 1.0
+     * */
     public void updateCurrentState(){
         previousState = currentState;
         currentState = getState();
