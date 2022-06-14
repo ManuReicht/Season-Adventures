@@ -1,13 +1,13 @@
 
-Sprite_Sheet6test.png
+Sprite_Sheet6test2.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 trunk run
   rotate: false
   xy: 2, 2
-  size: 896, 32
-  orig: 896, 32
+  size: 616, 32
+  orig: 616, 32
   offset: 0, 0
   index: -1
 chameleon run

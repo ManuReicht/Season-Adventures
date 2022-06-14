@@ -16,7 +16,7 @@ public class SpringFactory implements SeasonFactory {
         Array<TextureRegion> frames;
         frames = new Array<TextureRegion>();
         for (int i = 1; i < 14; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("trunk run"), i * 64, 0, 64, 32));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("trunk run"), i * 44, 0, 44, 32));
         Animation<TextureRegion> walk = new Animation(0.07f, frames);
 
         frames.clear();
