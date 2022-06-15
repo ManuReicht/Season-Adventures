@@ -1,6 +1,5 @@
 package at.htlkaindorf.entities.factories;
 
-import at.htlkaindorf.Game;
 import at.htlkaindorf.entities.collectables.Coin;
 import at.htlkaindorf.entities.collectables.Collectable;
 import at.htlkaindorf.entities.enemies.Enemy;
@@ -10,6 +9,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * The WinterFactory class is used to create objects in the winter theme.
+ * It implements the SeasonFactory interface.
+ * @author Reicht Manuel
+ * */
 public class WinterFactory implements SeasonFactory {
     @Override
     public Enemy createWalker(PlayScreen screen, float x, float y) {
