@@ -10,6 +10,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * The AutumnFactory class is used to create objects in the autumn theme.
+ * It implements the SeasonFactory interface.
+ * @author Reicht Manuel
+ * */
 public class AutumnFactory implements SeasonFactory {
     @Override
     public Enemy createWalker(PlayScreen screen, float x, float y) {

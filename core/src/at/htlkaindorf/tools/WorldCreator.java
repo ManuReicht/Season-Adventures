@@ -70,9 +70,9 @@ public class WorldCreator {
     }
 
     /**
-     * Calls the update method of the parrent class and
-     * sets the right animation frame.
-     * @param
+     * Creates the collision hitboxes based on the areas in the tiled map.
+     * @param world the world which contains the current level
+     * @param map the map which contains the areas where the hitboxes should be created
      * @since 1.0
      *  */
     public void createTerrain(World world, TiledMap map) {
@@ -97,6 +97,12 @@ public class WorldCreator {
         }
     }
 
+    /**
+     * Creates enemies based on the information of the tiled map.
+     * @param seasonFactory the season factory to create the right enemies for the current season
+     * @param map the map which contains the positions where the enemies should be created
+     * @since 1.0
+     *  */
     private void createEnemies(SeasonFactory seasonFactory, TiledMap map) {
         walkers = new Array<Walker>();
 
@@ -107,6 +113,12 @@ public class WorldCreator {
         }
     }
 
+    /**
+     * Creates collectables based on the information of the tiled map.
+     * @param seasonFactory the season factory to create the right collectables for the current season
+     * @param map the map which contains the positions where the collectables should be created
+     * @since 1.0
+     *  */
     private void createCollectables(SeasonFactory seasonFactory, TiledMap map) {
         coins = new Array<Coin>();
 
@@ -117,6 +129,12 @@ public class WorldCreator {
         }
     }
 
+    /**
+     * Creates level ends based on the information of the tiled map.
+     * @param seasonFactory the season factory to create the right level ends for the current season
+     * @param map the map which contains the positions where the level ends should be created
+     * @since 1.0
+     *  */
     private void createLevelEnds(SeasonFactory seasonFactory, TiledMap map) {
         levelEnds = new Array<LevelEnd>();
 
