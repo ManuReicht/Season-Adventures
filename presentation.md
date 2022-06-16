@@ -45,4 +45,17 @@
 
 ## Zuständigkeiten
 
-+ 
++ Nik:
+  + Physik/ Kollisionen
+  + Gegner/ Collectables
+  + World Creator & Contact listener
+    + Welt wird richtig erzeugt
+    + Kollisionen werden verarbeitet
+  + Kamera: Richtig positioniert, stoppt am Anfang und am Ende
++ Manu: 
+  + Start Screen
+  + Hud
+  + Spieler
+    + States
+    + Keine Double Jumps
+  + Abstract Factory
