@@ -189,7 +189,7 @@ public class PlayScreen implements Screen{
             gamecam.position.x = player.getBody().getPosition().x;
         }
 
-        System.out.println(player.getBody().getPosition().x);
+        //System.out.println(player.getBody().getPosition().x);
 
         gamecam.update();
         renderer.setView(gamecam);

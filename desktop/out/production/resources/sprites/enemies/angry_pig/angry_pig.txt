@@ -1,0 +1,40 @@
+angry_pig.png
+size: 1692, 32
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hit_one
+  rotate: false
+  xy: 1331, 1
+  size: 179, 29
+  orig: 180, 30
+  offset: 0, 0
+  index: -1
+hite_two
+  rotate: false
+  xy: 1512, 1
+  size: 179, 29
+  orig: 180, 30
+  offset: 0, 0
+  index: -1
+idle
+  rotate: false
+  xy: 1007, 1
+  size: 322, 29
+  orig: 324, 30
+  offset: 1, 0
+  index: -1
+run
+  rotate: false
+  xy: 576, 1
+  size: 429, 30
+  orig: 432, 30
+  offset: 3, 0
+  index: -1
+walk
+  rotate: false
+  xy: 1, 1
+  size: 573, 30
+  orig: 576, 30
+  offset: 3, 0
+  index: -1

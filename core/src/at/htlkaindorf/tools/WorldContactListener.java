@@ -56,7 +56,7 @@ public class WorldContactListener implements ContactListener {
             Game.getInstance().getCurrentPlayScreen().getHud().addScore(50);
         } else if (cDef == (PLAYER_BIT | ENEMY_BIT)) { // Player collides with an enemy
             takeDamage();
-            System.out.println("PlayerHitEnemy");
+            //System.out.println("PlayerHitEnemy");
         } else if (cDef == (ENEMY_BIT | ENEMY_BIT)) { // Two enemys collide with each other
             hitByOtherEnemy();
         } else if (cDef == (PLAYER_BIT | LEVEL_END_BIT)) {

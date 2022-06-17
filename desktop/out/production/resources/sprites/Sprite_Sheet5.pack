@@ -1,0 +1,82 @@
+
+Sprite_Sheet5.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+angry pig walk
+  rotate: false
+  xy: 2, 2
+  size: 576, 30
+  orig: 576, 30
+  offset: 0, 0
+  index: -1
+rock walk
+  rotate: false
+  xy: 2, 34
+  size: 532, 34
+  orig: 532, 34
+  offset: 0, 0
+  index: -1
+player run
+  rotate: false
+  xy: 2, 70
+  size: 384, 32
+  orig: 384, 32
+  offset: 0, 0
+  index: -1
+player idle
+  rotate: false
+  xy: 580, 2
+  size: 352, 32
+  orig: 352, 32
+  offset: 0, 0
+  index: -1
+flag animation
+  rotate: false
+  xy: 580, 36
+  size: 300, 60
+  orig: 300, 60
+  offset: 0, 0
+  index: -1
+angry pig hit
+  rotate: false
+  xy: 388, 70
+  size: 180, 30
+  orig: 180, 30
+  offset: 0, 0
+  index: -1
+summer coin
+  rotate: false
+  xy: 2, 104
+  size: 52, 13
+  orig: 52, 13
+  offset: 0, 0
+  index: -1
+spring coin
+  rotate: false
+  xy: 56, 104
+  size: 52, 13
+  orig: 52, 13
+  offset: 0, 0
+  index: -1
+rock hit
+  rotate: false
+  xy: 536, 34
+  size: 38, 34
+  orig: 38, 34
+  offset: 0, 0
+  index: -1
+player jump
+  rotate: false
+  xy: 934, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player fall
+  rotate: false
+  xy: 968, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

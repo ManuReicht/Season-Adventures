@@ -1,0 +1,96 @@
+
+Sprite_Sheet2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+angry_pig_walk
+  rotate: false
+  xy: 1, 203
+  size: 576, 30
+  orig: 576, 30
+  offset: 0, 0
+  index: -1
+angry_pig_run
+  rotate: false
+  xy: 1, 171
+  size: 432, 30
+  orig: 432, 30
+  offset: 0, 0
+  index: -1
+player_run
+  rotate: false
+  xy: 1, 137
+  size: 384, 32
+  orig: 384, 32
+  offset: 0, 0
+  index: -1
+player_idle
+  rotate: false
+  xy: 1, 103
+  size: 352, 32
+  orig: 352, 32
+  offset: 0, 0
+  index: -1
+angry_pig_idle
+  rotate: false
+  xy: 579, 203
+  size: 324, 30
+  orig: 324, 30
+  offset: 0, 0
+  index: -1
+player_hit
+  rotate: false
+  xy: 1, 69
+  size: 224, 32
+  orig: 224, 32
+  offset: 0, 0
+  index: -1
+player_double_jump
+  rotate: false
+  xy: 1, 35
+  size: 192, 32
+  orig: 192, 32
+  offset: 0, 0
+  index: -1
+angry_pig_hite_two
+  rotate: false
+  xy: 435, 171
+  size: 180, 30
+  orig: 180, 30
+  offset: 0, 0
+  index: -1
+angry_pig_hit_one
+  rotate: false
+  xy: 387, 139
+  size: 180, 30
+  orig: 180, 30
+  offset: 0, 0
+  index: -1
+wall_jump
+  rotate: false
+  xy: 1, 1
+  size: 160, 32
+  orig: 160, 32
+  offset: 0, 0
+  index: -1
+coin
+  rotate: false
+  xy: 905, 220
+  size: 52, 13
+  orig: 52, 13
+  offset: 0, 0
+  index: -1
+player_fall
+  rotate: false
+  xy: 227, 69
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player_jump
+  rotate: false
+  xy: 195, 35
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
