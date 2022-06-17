@@ -7,6 +7,7 @@
 4. Main-Klasse: DesktopLauncher
    * Pfad: Season-Adventures/desktop/src/at/htlkaindorf/desktop/DesktopLauncher.java
 5. Run Configuration
+   * Edit Configuration -> Add new
    * Application
    * Main: at.htlkaindorf.desktop.DesktopLauncher
 ![image](https://user-images.githubusercontent.com/86600051/174284197-2c808116-1406-4224-aeee-0f45ec5e18dc.png)
@@ -20,7 +21,9 @@ https://docs.google.com/spreadsheets/d/1_x5mME89AK8lcQwUQ1XozdxPVGa0oh3o4wjBLSRY
 ## Libgdx - Game Engine
 https://libgdx.com/
 
-## Richtlinen für Levelerstellung (Ebenen)
+
+## internes (Manuel & Nik)
+### Richtlinen für Levelerstellung (Ebenen)
 
 1. Kachelebenen
     * ID 1: Background (0)
