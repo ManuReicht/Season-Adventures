@@ -1,7 +1,7 @@
 # Season Adventures
 
 ## Installation und Ausführen
-1. Zip herunterladen oder Klonen
+1. Zip herunterladen oder git clone
 2. in IntelliJ öffnen
 3. Gradle Sync (automatisch)
 4. Main-Klasse: DesktopLauncher
