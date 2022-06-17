@@ -170,6 +170,9 @@ public class Game extends com.badlogic.gdx.Game {
                 season++;
             } else {
                 season = 1;
+                level = 1;
+                setScreen(new MainMenuScreen());
+                return;
             }
             level = 1;
         }
