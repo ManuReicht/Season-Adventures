@@ -1,5 +1,16 @@
 # Season Adventures
 
+## Installation und Ausführen
+1. Zip herunterladen oder Klonen
+2. in IntelliJ öffnen
+3. Gradle Sync (automatisch)
+4. Main-Klasse: DesktopLauncher
+   * Pfad: Season-Adventures/desktop/src/at/htlkaindorf/desktop/DesktopLauncher.java
+5. Run Configuration
+   * Application
+   * Main: at.htlkaindorf.desktop.DesktopLauncher
+![image](https://user-images.githubusercontent.com/86600051/174284197-2c808116-1406-4224-aeee-0f45ec5e18dc.png)
+
 ## Trello
 https://trello.com/b/0HgkEtQq/season-adventures
 
